@@ -1,1 +1,84 @@
 # CLI Comparison Project\n\nThis repo contains two CLI tools:\n- : Rust\n- : C#\n\nUse hyperfine to benchmark them.\n
+
+### 🧠 Data Flow: Manual vs Batch Job Processing
+
+#### 🟩 Manual Stream Processor: `read → act → forget`
+
+```
+┌────────────┐
+│ input.csv  │
+└────┬───────┘
+     ↓
+┌──────────────┐
+│ Read 1 line  │
+└────┬─────────┘
+     ↓
+┌──────────────┐
+│ Filter/Modify│
+└────┬─────────┘
+     ↓
+┌──────────────┐
+│ Write output │
+└────┬─────────┘
+     ↓
+ Repeat for next line (no memory retained)
+```
+
+---
+
+#### 🟦 Batch Job Processor: `read → store → aggregate → write`
+
+```
+┌────────────┐
+│ input.csv  │
+└────┬───────┘
+     ↓
+┌──────────────┐
+│ Read 1 line  │
+└────┬─────────┘
+     ↓
+┌────────────────────────────┐
+│ Update count in memory map│  ◄───┐
+└────┬───────────────────────┘     │
+     ↓                             │
+ Repeat for all lines ─────────────┘
+
+After reading all:
+     ↓
+┌────────────────────────┐
+│ Write summary to output│
+└────────────────────────┘
+```
+
+### ✅ Summary
+
+- The **manual stream processor** reacts row-by-row and keeps no memory.
+- The **batch job** tracks and aggregates data across the entire dataset, producing a structured summary.
+
+Use this distinction to justify design decisions in benchmarks, strategy analysis, and reporting.
+
+### ▶️ How to Profile Resource Usage
+
+Use the included PowerShell script `measure_memory.ps1` to measure peak memory and CPU time.
+
+```powershell
+# Run from project root in PowerShell
+./measure_memory.ps1
+```
+Ensure the paths inside the script point to:
+- Rust release binary: `target/release/batch_job.exe`
+- C# release binary: `bin/Release/net9.0/CsvProcessor.exe`
+
+
+
+
+Use [`hyperfine`](https://github.com/sharkdp/hyperfine) to measure and compare execution time:
+
+```powershell
+# Run from project root in PowerShell
+hyperfine --warmup 1 --show-output   "/e/Education/Saxion/Internship/Projects/csv_processor_rust/target/release/batch_job.exe large_input.csv output_rust.csv"   "/e/Education/Saxion/Internship/Projects/CsvProcessor/bin/Release/net9.0/CsvProcessor.exe large_input.csv output_csharp.csv"   --export-markdown benchmark.md
+```
+
+Ensure the paths match your latest build:
+- Rust: `cargo build --release`
+- C#: `dotnet build -c Release`

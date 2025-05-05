@@ -15,7 +15,7 @@ function Measure-MemoryUsage {
     Start-Sleep -Milliseconds 100
 
     $maxMemory = 0
-
+    $cpuTime = 0
     while (-not $proc.HasExited) {
         try {
             $current = (Get-Process -Id $proc.Id -ErrorAction SilentlyContinue).WorkingSet64 / 1MB
@@ -25,12 +25,19 @@ function Measure-MemoryUsage {
         } catch {}
         Start-Sleep -Milliseconds 100
     }
+    # 🔧 Capture CPU time after the loop but before the object is disposed
+    try {
+        $cpuTime = $proc.TotalProcessorTime.TotalMilliseconds
+    } catch {}
 
     Write-Host "Peak Memory Usage: $([math]::Round($maxMemory, 2)) MB"
+    Write-Host "CPU Time: $([math]::Round($cpuTime, 2)) ms"
 }
 
 # === RUN COMPARISON ===
 
-Measure-MemoryUsage "E:\Education\Saxion\Internship\Projects\csv_processor_rust\target\release\csv_processor_rust.exe" @("large_input.csv", "output_rust.csv")
+Measure-MemoryUsage "E:\Education\Saxion\Internship\Projects\csv_processor_rust\target\release\batch_job.exe" @("large_input.csv", "output_rust.csv")
 
-Measure-MemoryUsage "E:\Education\Saxion\Internship\Projects\CsvProcessor\bin\Release\net9.0\win-x64\publish\CsvProcessor.exe" @("large_input.csv", "output_csharp.csv")
+
+Measure-MemoryUsage "E:\Education\Saxion\Internship\Projects\CsvProcessor\bin\Release\net9.0\CsvProcessor.exe" @("large_input.csv", "output_csharp.csv")
+

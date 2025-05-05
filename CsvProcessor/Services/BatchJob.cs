@@ -1,12 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
-using Models;
 
-namespace CsvProcessorFast
+namespace Services
 {
-    // This class is a simple
     public class BatchJob
     {
         public void Run(string inputPath, string outputPath)
@@ -41,6 +38,7 @@ namespace CsvProcessorFast
             {
                 writer.WriteLine($"{kv.Key},{kv.Value}");
             }
+            Console.WriteLine($"The batch job source run successfully.");
         }
 
         private string GetAgeGroup(int age)
@@ -49,5 +47,4 @@ namespace CsvProcessorFast
             return $"{baseAge}-{baseAge + 9}";
         }
     }
-
 }

@@ -1,8 +1,9 @@
+// read → act → forget
 using System;
 using System.IO;
 using System.Text;
 
-namespace CsvProcessorFast
+namespace Services
 {
     public class CsvProcessorManual
     {
