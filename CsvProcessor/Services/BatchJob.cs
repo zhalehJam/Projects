@@ -38,7 +38,6 @@ namespace Services
             {
                 writer.WriteLine($"{kv.Key},{kv.Value}");
             }
-            Console.WriteLine($"The batch job source run successfully.");
         }
 
         private string GetAgeGroup(int age)

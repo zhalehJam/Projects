@@ -74,11 +74,22 @@ Ensure the paths inside the script point to:
 
 Use [`hyperfine`](https://github.com/sharkdp/hyperfine) to measure and compare execution time:
 
+Ensure the paths match your latest build:
+- Rust: `cargo build --release`
+- C#: `dotnet build -c Release`
+
+
+```powershell
+# Run from project root in PowerShell
+hyperfine --warmup 1 --show-output   "/e/Education/Saxion/Internship/Projects/csv_processor_rust/target/release/cli_tool.exe large_input.csv output_rust.csv"   "/e/Education/Saxion/Internship/Projects/CsvProcessor/bin/Release/net9.0/CsvProcessor.exe large_input.csv output_csharp.csv"   --export-markdown manual_benchmark.md
+```
+
 ```powershell
 # Run from project root in PowerShell
 hyperfine --warmup 1 --show-output   "/e/Education/Saxion/Internship/Projects/csv_processor_rust/target/release/batch_job.exe large_input.csv output_rust.csv"   "/e/Education/Saxion/Internship/Projects/CsvProcessor/bin/Release/net9.0/CsvProcessor.exe large_input.csv output_csharp.csv"   --export-markdown benchmark.md
 ```
 
-Ensure the paths match your latest build:
-- Rust: `cargo build --release`
-- C#: `dotnet build -c Release`
+
+```powershell
+hyperfine --warmup 1 --show-output   "/e/Education/Saxion/Internship/Projects/csv_processor_rust/target/release/batch_job_parallel.exe large_input.csv output_rust.csv"   "/e/Education/Saxion/Internship/Projects/CsvProcessor/bin/Release/net9.0/CsvProcessor.exe large_input.csv output_csharp.csv"   --export-markdown Parallel_benchmark.md
+```
