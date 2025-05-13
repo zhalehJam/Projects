@@ -1,0 +1,33 @@
+# python compare_csv_outputs.py output_rust.csv output_csharp.csv
+
+import csv
+import sys
+
+def load_csv(path):
+    with open(path, newline='', encoding='utf-8') as f:
+        reader = csv.reader(f)
+        return list(reader)
+
+def compare_csv(file1, file2):
+    data1 = load_csv(file1)
+    data2 = load_csv(file2)
+
+    if len(data1) != len(data2):
+        print(f"❌ Row count mismatch: {len(data1)} vs {len(data2)}")
+        return False
+
+    for i, (row1, row2) in enumerate(zip(data1, data2)):
+        if row1 != row2:
+            print(f"❌ Row {i + 1} differs:\n  {file1}: {row1}\n  {file2}: {row2}")
+            return False
+
+    print("✅ CSV files match exactly.")
+    return True
+
+if __name__ == "__main__":
+    if len(sys.argv) != 3:
+        print("Usage: python compare_csv_outputs.py rust_output.csv csharp_output.csv")
+        sys.exit(1)
+
+    file1, file2 = sys.argv[1], sys.argv[2]
+    compare_csv(file1, file2)
