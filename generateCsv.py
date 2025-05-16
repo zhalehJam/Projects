@@ -6,10 +6,10 @@ fake = Faker()
 random.seed(42)
 Faker.seed(42)
 
-rows = 10_000_000  
-chunk_size = 100_000
+rows = 100_000  
+chunk_size = 10_000
 
-with open("huge_input.csv", "w") as f:
+with open("large_input.csv", "w") as f:
     f.write("id,name,email,age\n")
     id_counter = 1
     for _ in range(rows // chunk_size):

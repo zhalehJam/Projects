@@ -1,5 +1,4 @@
-﻿using Services;
-
+﻿
 internal class Program
 {
     private static void Main(string[] args)
@@ -13,8 +12,10 @@ internal class Program
         var inputPath = args[0];
         var outputPath = args[1];
 
+        // var service = new CsvService();
+        // service.ProcessCsv(inputPath, outputPath); 
 
-        var processor = new CsvProcessorManual();
+        var processor = new Services.CsvProcessorManual();
         processor.Process(inputPath, outputPath);
     }
 }
