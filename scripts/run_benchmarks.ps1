@@ -11,24 +11,24 @@ $rustParallel = "E:\Education\Saxion\Internship\Projects\csv_processor_rust\targ
 $csharpParallel = "E:\Education\Saxion\Internship\Projects\CsvTools\ParallelBatchProcessor\bin\Release\net9.0\ParallelBatchProcessor.exe"
 
 # Input sizes
-$inputs = @("small_input.csv","large_input.csv", "huge_input.csv") # Add "large_input.csv", "huge_input.csv" as needed
+$inputs = @("results\small_input.csv","results\large_input.csv", "results\huge_input.csv") # Add "large_input.csv", "huge_input.csv" as needed
 
 foreach ($input in $inputs) {
-    $suffix = ($input -replace "_input.csv", "")
-
+    # $suffix = ($input -replace "_input.csv", "")
+    $suffix= $suffix -replace "results\\", ""
     Write-Host "Benchmarking CSV Transformer [$suffix]"
 
     hyperfine --warmup 1 --show-output `
-        "$RustCsvTransformer $input rustTransformer_output_$suffix.csv" `
-        "$csharpCsvTransformer $input csharpTransformer_output_$suffix.csv" `
-        --export-markdown "benchmark_transformer_$suffix.md"
+        "$RustCsvTransformer $input results\rustTransformer_output_$suffix.csv" `
+        "$csharpCsvTransformer $input results\csharpTransformer_output_$suffix.csv" `
+        --export-markdown "results\benchmark_transformer_$suffix.md"
 
     Write-Host "Benchmarking Batch Processor [$suffix]"
 
     hyperfine --warmup 1 --show-output `
-        "$rustBatch $input rustBatch_output_$suffix.csv" `
-        "$csharpBatch $input csharpBatch_output_$suffix.csv" `
-        --export-markdown "benchmark_batch_$suffix.md"
+        "$rustBatch $input results\rustBatch_output_$suffix.csv" `
+        "$csharpBatch $input results\csharpBatch_output_$suffix.csv" `
+        --export-markdown "results\benchmark_batch_$suffix.md"
 
     Write-Host "Benchmarking Parallel Batch Processor [$suffix]"
 

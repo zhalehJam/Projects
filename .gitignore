@@ -12,7 +12,7 @@
 *.csv
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
-
+audiotranscript.py
 # Mono auto generated files
 mono_crash.*
 

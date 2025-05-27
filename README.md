@@ -94,5 +94,8 @@ hyperfine --warmup 1 --show-output   "/e/Education/Saxion/Internship/Projects/cs
 hyperfine --warmup 1 --show-output   "/e/Education/Saxion/Internship/Projects/csv_processor_rust/target/release/batch_job_parallel.exe large_input.csv output_rust.csv"   "/e/Education/Saxion/Internship/Projects/CsvProcessor/bin/Release/net9.0/CsvProcessor.exe large_input.csv output_csharp.csv"   --export-markdown Parallel_benchmark.md
 ```
 
-### 📝 great bench mark site
-[text](https://programming-language-benchmarks.vercel.app/csharp-vs-rust)
+
+### 📝 Notes
+dotnet new console -n threadcheck
+dotnet sln add .\threadcheck\threadcheck.csproj
+dotnet add package System.Threading.Channels
