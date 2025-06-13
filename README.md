@@ -94,8 +94,23 @@ hyperfine --warmup 1 --show-output   "/e/Education/Saxion/Internship/Projects/cs
 hyperfine --warmup 1 --show-output   "/e/Education/Saxion/Internship/Projects/csv_processor_rust/target/release/batch_job_parallel.exe large_input.csv output_rust.csv"   "/e/Education/Saxion/Internship/Projects/CsvProcessor/bin/Release/net9.0/CsvProcessor.exe large_input.csv output_csharp.csv"   --export-markdown Parallel_benchmark.md
 ```
 
+```powershell
+hyperfine --warmup 1 --show-output `
+'"E:\Education\Saxion\Internship\Projects\CsvTools\CallRustTool\bin\Release\net9.0\CallRustTool.exe" "E:\Education\Saxion\Internship\Projects\results\small_input.csv" "E:\Education\Saxion\Internship\Projects\results\output_rust.csv"' `
+'"E:\Education\Saxion\Internship\Projects\CsvTools\CsvTransformer\bin\Release\net9.0\CsvTransformer.exe" "E:\Education\Saxion\Internship\Projects\results\small_input.csv" "E:\Education\Saxion\Internship\Projects\results\output_csharp.csv"' `
+--export-markdown manual_benchmark.md
+
+```
+hyperfine --warmup 1 --show-output '"E:\Education\Saxion\Internship\Projects\rust_lib\TestLibraryProject\CsvProcessor\bin\Release\net9.0\CsvProcessor.exe" "E:\Education\Saxion\Internship\Projects\results\small_input.csv" "E:\Education\Saxion\Internship\Projects\results\output_rust.csv"' '"E:\Education\Saxion\Internship\Projects\CsvTools\CsvTransformer\bin\Release\net9.0\CsvTransformer.exe" "E:\Education\Saxion\Internship\Projects\results\small_input.csv" "E:\Education\Saxion\Internship\Projects\results\output_csharp.csv"' --export-markdown csv_transform_benchmark.md
 
 ### 📝 Notes
 dotnet new console -n threadcheck
 dotnet sln add .\threadcheck\threadcheck.csproj
 dotnet add package System.Threading.Channels
+dotnet new sln -n CsharpProjectUseRustCLI      
+
+
+
+
+
+hyperfine --warmup 1 --show-output '"E:\Education\Saxion\Internship\Projects\rust_lib\TestLibraryProject\CsvProcessor\bin\Release\net9.0\CsvProcessor.exe" "E:\Education\Saxion\Internship\Projects\results\small_input.csv" "E:\Education\Saxion\Internship\Projects\results\output_rust.csv"' '"E:\Education\Saxion\Internship\Projects\CsvTools\CsvTransformer\bin\Release\net9.0\CsvTransformer.exe" "E:\Education\Saxion\Internship\Projects\results\small_input.csv" "E:\Education\Saxion\Internship\Projects\results\output_csharp.csv"' '"E:\Education\Saxion\Internship\Projects\csv_processor_rust\target\release\csv_transform.exe" "E:\Education\Saxion\Internship\Projects\results\small_input.csv" "E:\Education\Saxion\Internship\Projects\results\output_rust.csv"' '"E:\Education\Saxion\Internship\Projects\CsvTools\CallRustTool\bin\Release\net9.0\CallRustTool.exe" "E:\Education\Saxion\Internship\Projects\results\small_input.csv" "E:\Education\Saxion\Internship\Projects\results\output_rust.csv"'--export-markdown csv_transform_benchmark.md
