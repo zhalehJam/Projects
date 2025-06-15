@@ -25,21 +25,21 @@ foreach ($input in $inputs) {
 
     Write-Host "Benchmarking CSV Transformer [$suffix]"
 
-    # hyperfine --warmup 10 --runs 10 --show-output `
-    #     "`"$RustCsvTransformer`" `"$input`" `"results\rustTransformer_output_$suffix.csv`"" `
-    #     "`"$csharpCsvTransformer`" `"$input`" `"results\csharpTransformer_output_$suffix.csv`"" `
-    #     "`"$csharpCsvStreamprocessorUseRustCli`" `"$input`" `"results\csharpTransformerRustCli_output_$suffix.csv`"" `
-    #     "`"$csharpCsvStreamprocessorUseRustDll`" `"$input`" `"results\csharpTransformerRustDll_output_$suffix.csv`"" `
-    #     --export-markdown "results\benchmark_transformer_$suffix.md"
+    hyperfine --warmup 10 --runs 10 --show-output `
+        "`"$RustCsvTransformer`" `"$input`" `"results\rustTransformer_output_$suffix.csv`"" `
+        "`"$csharpCsvTransformer`" `"$input`" `"results\csharpTransformer_output_$suffix.csv`"" `
+        "`"$csharpCsvStreamprocessorUseRustCli`" `"$input`" `"results\csharpTransformerRustCli_output_$suffix.csv`"" `
+        "`"$csharpCsvStreamprocessorUseRustDll`" `"$input`" `"results\csharpTransformerRustDll_output_$suffix.csv`"" `
+        --export-markdown "results\benchmark_transformer_$suffix.md"
 
-    # Write-Host "Benchmarking Batch Processor [$suffix]"
+    Write-Host "Benchmarking Batch Processor [$suffix]"
 
-    # hyperfine --warmup 10 --runs 10 --show-output `
-    #     "$rustBatch $input results\rustBatch_output_$suffix.csv" `
-    #     "$csharpBatch $input results\csharpBatch_output_$suffix.csv" `
-    #     "$csharpCsvBatchProcessorUseRustCli $input results\csharpBatchRustCli_output_$suffix.csv" `
-    #     "$csharpCsvBatchProcessorUseRustDll $input results\csharpBatchRustDll_output_$suffix.csv" `
-    #     --export-markdown "results\benchmark_batch_$suffix.md"
+    hyperfine --warmup 10 --runs 10 --show-output `
+        "$rustBatch $input results\rustBatch_output_$suffix.csv" `
+        "$csharpBatch $input results\csharpBatch_output_$suffix.csv" `
+        "$csharpCsvBatchProcessorUseRustCli $input results\csharpBatchRustCli_output_$suffix.csv" `
+        "$csharpCsvBatchProcessorUseRustDll $input results\csharpBatchRustDll_output_$suffix.csv" `
+        --export-markdown "results\benchmark_batch_$suffix.md"
 
     Write-Host "Benchmarking Parallel Batch Processor [$suffix]"
 
