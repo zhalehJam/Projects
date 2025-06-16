@@ -398,4 +398,7 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-target/
+# target/
+# --- Unignore Rust binary files ---
+!src/bin/
+!src/bin/*.rs

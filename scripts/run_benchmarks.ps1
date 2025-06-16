@@ -16,7 +16,7 @@ $csharpParallel = "E:\Education\Saxion\Internship\Projects\CSharpProjects\Parall
 $csharpCsvParallelBatchProcessorUseRustCli="E:\Education\Saxion\Internship\Projects\CSharpProjectsUseCLIRust\CsvParallelBatchProcessor\bin\release\net9.0\CsvParallelBatchProcessor.exe"
 $csharpCsvParallelBatchProcessorUseRustDll = "E:\Education\Saxion\Internship\Projects\CharpProjectsUseDLLRust\CsharptCsvParallelBatchProcessorUseRustDll\bin\Release\net9.0\CsharptCsvParallelBatchProcessorUseRustDll.exe"
 # Input sizes
-$inputs = @( "results\huge_input.csv") # Add "large_input.csv", "huge_input.csv" as needed  "results\small_input.csv","results\large_input.csv",
+$inputs = @( "results\huge_input.csv" , "results\small_input.csv","results\large_input.csv") # Add "large_input.csv", "huge_input.csv" as needed  "results\small_input.csv","results\large_input.csv",
 
 foreach ($input in $inputs) {
     # $suffix = ($input -replace "_input.csv", "")
