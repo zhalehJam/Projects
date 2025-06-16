@@ -1,0 +1,7 @@
+E:\Education\Saxion\Internship\Projects\RustProjects_DLL\target\debug\deps\libcsv_core-159229fd5a167063.rmeta: C:\Users\pc\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\csv-core-0.1.12\src\lib.rs C:\Users\pc\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\csv-core-0.1.12\src\reader.rs C:\Users\pc\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\csv-core-0.1.12\src\writer.rs
+
+E:\Education\Saxion\Internship\Projects\RustProjects_DLL\target\debug\deps\csv_core-159229fd5a167063.d: C:\Users\pc\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\csv-core-0.1.12\src\lib.rs C:\Users\pc\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\csv-core-0.1.12\src\reader.rs C:\Users\pc\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\csv-core-0.1.12\src\writer.rs
+
+C:\Users\pc\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\csv-core-0.1.12\src\lib.rs:
+C:\Users\pc\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\csv-core-0.1.12\src\reader.rs:
+C:\Users\pc\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\csv-core-0.1.12\src\writer.rs:
