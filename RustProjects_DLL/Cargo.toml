@@ -8,6 +8,7 @@ name = "rust_csv"
 crate-type = ["cdylib"]
 
 [dependencies]
-csv = "1"
+csv = "1.2"
 serde = { version = "1", features = ["derive"] }
-rayon = "1"
+polars = { version = "0.36", features = ["lazy", "csv"] }
+rayon = "1.8"

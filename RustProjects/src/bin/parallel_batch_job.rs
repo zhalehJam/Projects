@@ -100,3 +100,38 @@ fn main() -> Result<(), Box<dyn Error>> {
     wtr.flush()?;
     Ok(())
 }
+
+
+
+
+// use polars::prelude::*;
+// use polars::lazy::dsl::{col, lit, count};
+// use std::fs::File;
+
+// fn main() -> Result<(), Box<dyn std::error::Error>> {
+//     let df = CsvReader::from_path("results/huge_input.csv")?
+//         .infer_schema(None)
+//         .has_header(true)
+//         .finish()?;
+
+//     let grouped = df
+//         .lazy()
+//         .with_columns([col("age").cast(DataType::UInt32)])
+//         .with_columns([
+//             (col("age") / lit(10u32))
+//                 .cast(DataType::UInt32)
+//                 .alias("group"),
+//         ])
+//         .group_by([col("group")])
+//         .agg([count().alias("count")])
+//         .sort("group", Default::default())
+//         .collect()?;
+
+//     let mut grouped = grouped; // <- make mutable
+
+//     CsvWriter::new(File::create("results/rustParallel_output_huge.csv")?)
+//         .include_header(true)
+//         .finish(&mut grouped)?;
+
+//     Ok(())
+// }
