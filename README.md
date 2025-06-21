@@ -1,8 +1,35 @@
-# CLI Comparison Project\n\nThis repo contains two CLI tools:\n- : Rust\n- : C#\n\nUse hyperfine to benchmark them.\n
+# CLI CSV Processing Comparison
 
-### 🧠 Data Flow: Manual vs Batch Job Processing
+This repository contains **four main projects** for high-performance CSV processing, implemented in both **Rust** and **C#**. The goal is to compare their execution models, memory usage, speed, and parallel performance. We also provide scripts for automated benchmarking.
 
-#### 🟩 Manual Stream Processor: `read → act → forget`
+---
+
+## 📦 Project Overview
+
+### 1. **Manual Stream Processor**
+- **Rust:** `csv_transform.rs`
+- **C#:** `CsvTransformer` (`CsvProcessorManual.cs`)
+- **Description:** Reads and processes each CSV line one-by-one, filtering or transforming as needed, and writes output immediately. Minimal memory usage.
+
+### 2. **Batch Job Processor**
+- **Rust:** `batch_job.rs`
+- **C#:** `BatchJob.cs`
+- **Description:** Reads the CSV, aggregates/group data (e.g., by age group) in memory, then writes a summary output. Higher memory usage, but enables aggregation.
+
+### 3. **Parallel Batch Job**
+- **Rust:** `parallel_batch_job.rs`
+- **C#:** `BatchJobParallel.cs`
+- **Description:** Reads the CSV in chunks, processes each chunk in parallel threads, aggregates results, and merges them. Fast and scalable for large files.
+
+### 4. **Polars/Streaming Batch Job (Rust only)**
+- **Rust:** `parallel_batch_job_for_huge_file.rs`
+- **Description:** Uses the Polars library's streaming/lazy API for highly efficient, parallel, and low-memory batch processing on huge CSV files.
+
+---
+
+## ⚙️ Execution Models
+
+### Manual Stream Processor
 
 ```
 ┌────────────┐
@@ -14,19 +41,15 @@
 └────┬─────────┘
      ↓
 ┌──────────────┐
-│ Filter/Modify│
+│ Filter/Write │
 └────┬─────────┘
      ↓
-┌──────────────┐
-│ Write output │
-└────┬─────────┘
-     ↓
- Repeat for next line (no memory retained)
+Repeat for each line (no state kept)
 ```
 
 ---
 
-#### 🟦 Batch Job Processor: `read → store → aggregate → write`
+### Batch Job Processor
 
 ```
 ┌────────────┐
@@ -38,10 +61,10 @@
 └────┬─────────┘
      ↓
 ┌────────────────────────────┐
-│ Update count in memory map│  ◄───┐
-└────┬───────────────────────┘     │
-     ↓                             │
- Repeat for all lines ─────────────┘
+│ Update aggregation in mem  │◄───┐
+└────┬───────────────────────┘    │
+     ↓                            │
+Repeat for all lines ─────────────┘
 
 After reading all:
      ↓
@@ -50,67 +73,97 @@ After reading all:
 └────────────────────────┘
 ```
 
-### ✅ Summary
+---
 
-- The **manual stream processor** reacts row-by-row and keeps no memory.
-- The **batch job** tracks and aggregates data across the entire dataset, producing a structured summary.
-
-Use this distinction to justify design decisions in benchmarks, strategy analysis, and reporting.
-
-### ▶️ How to Profile Resource Usage
-
-Use the included PowerShell script `measure_memory.ps1` to measure peak memory and CPU time.
-
-```powershell
-# Run from project root in PowerShell
-./measure_memory.ps1
-```
-Ensure the paths inside the script point to:
-- Rust release binary: `target/release/batch_job.exe`
-- C# release binary: `bin/Release/net9.0/CsvProcessor.exe`
-
-
-
-
-Use [`hyperfine`](https://github.com/sharkdp/hyperfine) to measure and compare execution time:
-
-Ensure the paths match your latest build:
-- Rust: `cargo build --release`
-- C#: `dotnet build -c Release`
-
-
-```powershell
-# Run from project root in PowerShell
-hyperfine --warmup 1 --show-output   "/e/Education/Saxion/Internship/Projects/csv_processor_rust/target/release/cli_tool.exe large_input.csv output_rust.csv"   "/e/Education/Saxion/Internship/Projects/CsvProcessor/bin/Release/net9.0/CsvProcessor.exe large_input.csv output_csharp.csv"   --export-markdown manual_benchmark.md
-```
-
-```powershell
-# Run from project root in PowerShell
-hyperfine --warmup 1 --show-output   "/e/Education/Saxion/Internship/Projects/csv_processor_rust/target/release/batch_job.exe large_input.csv output_rust.csv"   "/e/Education/Saxion/Internship/Projects/CsvProcessor/bin/Release/net9.0/CsvProcessor.exe large_input.csv output_csharp.csv"   --export-markdown benchmark.md
-```
-
-
-```powershell
-hyperfine --warmup 1 --show-output   "/e/Education/Saxion/Internship/Projects/csv_processor_rust/target/release/batch_job_parallel.exe large_input.csv output_rust.csv"   "/e/Education/Saxion/Internship/Projects/CsvProcessor/bin/Release/net9.0/CsvProcessor.exe large_input.csv output_csharp.csv"   --export-markdown Parallel_benchmark.md
-```
-
-```powershell
-hyperfine --warmup 1 --show-output `
-'"E:\Education\Saxion\Internship\Projects\CsvTools\CallRustTool\bin\Release\net9.0\CallRustTool.exe" "E:\Education\Saxion\Internship\Projects\results\small_input.csv" "E:\Education\Saxion\Internship\Projects\results\output_rust.csv"' `
-'"E:\Education\Saxion\Internship\Projects\CsvTools\CsvTransformer\bin\Release\net9.0\CsvTransformer.exe" "E:\Education\Saxion\Internship\Projects\results\small_input.csv" "E:\Education\Saxion\Internship\Projects\results\output_csharp.csv"' `
---export-markdown manual_benchmark.md
+### Parallel Batch Job
 
 ```
-hyperfine --warmup 1 --show-output '"E:\Education\Saxion\Internship\Projects\rust_lib\TestLibraryProject\CsvProcessor\bin\Release\net9.0\CsvProcessor.exe" "E:\Education\Saxion\Internship\Projects\results\small_input.csv" "E:\Education\Saxion\Internship\Projects\results\output_rust.csv"' '"E:\Education\Saxion\Internship\Projects\CsvTools\CsvTransformer\bin\Release\net9.0\CsvTransformer.exe" "E:\Education\Saxion\Internship\Projects\results\small_input.csv" "E:\Education\Saxion\Internship\Projects\results\output_csharp.csv"' --export-markdown csv_transform_benchmark.md
+┌────────────┐
+│ input.csv  │
+└────┬───────┘
+     ↓
+┌──────────────────────────────┐
+│ Read chunk of N lines        │
+└────┬─────────────────────────┘
+     ↓
+┌──────────────────────────────┐
+│ Process chunk in parallel    │
+│ (threads/tasks)              │
+└────┬─────────────────────────┘
+     ↓
+┌──────────────────────────────┐
+│ Merge local aggregates       │
+└────┬─────────────────────────┘
+     ↓
+After all chunks:
+┌────────────────────────┐
+│ Write summary to output│
+└────────────────────────┘
+```
 
-### 📝 Notes
-dotnet new console -n threadcheck
-dotnet sln add .\threadcheck\threadcheck.csproj
-dotnet add package System.Threading.Channels
-dotnet new sln -n CsharpProjectUseRustCLI      
+---
 
+### Polars/Streaming Batch Job (Rust)
 
+```
+┌────────────┐
+│ input.csv  │
+└────┬───────┘
+     ↓
+┌──────────────────────────────┐
+│ Polars streaming engine      │
+│ (parallel, chunked, lazy)    │
+└────┬─────────────────────────┘
+     ↓
+┌──────────────────────────────┐
+│ Group/aggregate in streaming │
+└────┬─────────────────────────┘
+     ↓
+┌────────────────────────┐
+│ Write summary to output│
+└────────────────────────┘
+```
 
+---
 
+## 🛠️ Benchmarking & Profiling Scripts
 
-hyperfine --warmup 1 --show-output '"E:\Education\Saxion\Internship\Projects\rust_lib\TestLibraryProject\CsvProcessor\bin\Release\net9.0\CsvProcessor.exe" "E:\Education\Saxion\Internship\Projects\results\small_input.csv" "E:\Education\Saxion\Internship\Projects\results\output_rust.csv"' '"E:\Education\Saxion\Internship\Projects\CsvTools\CsvTransformer\bin\Release\net9.0\CsvTransformer.exe" "E:\Education\Saxion\Internship\Projects\results\small_input.csv" "E:\Education\Saxion\Internship\Projects\results\output_csharp.csv"' '"E:\Education\Saxion\Internship\Projects\csv_processor_rust\target\release\csv_transform.exe" "E:\Education\Saxion\Internship\Projects\results\small_input.csv" "E:\Education\Saxion\Internship\Projects\results\output_rust.csv"' '"E:\Education\Saxion\Internship\Projects\CsvTools\CallRustTool\bin\Release\net9.0\CallRustTool.exe" "E:\Education\Saxion\Internship\Projects\results\small_input.csv" "E:\Education\Saxion\Internship\Projects\results\output_rust.csv"'--export-markdown csv_transform_benchmark.md
+### Memory & CPU Usage
+
+- **PowerShell script:** `measure_memory.ps1`
+    - Runs each CLI tool and records peak memory and CPU time.
+    - Example usage:
+      ```powershell
+      ./measure_memory.ps1
+      ```
+    - Make sure to set the correct paths for each binary.
+
+### Speed & Performance
+
+- **[hyperfine](https://github.com/sharkdp/hyperfine):** Used to benchmark execution time.
+    - Example usage:
+      ```powershell
+      hyperfine --warmup 1 --show-output "path\to\rust_tool.exe input.csv output.csv" "path\to\csharp_tool.exe input.csv output.csv"
+      ```
+    - Results can be exported to Markdown for reporting.
+
+---
+
+## 📝 Notes
+
+- **Rust:** Build with `cargo build --release`
+- **C#:** Build with `dotnet build -c Release`
+- For parallel and streaming jobs, ensure dependencies (e.g., Polars for Rust) are up to date and have the correct features enabled.
+- All tools accept the same CLI arguments: `<input.csv> <output.csv>`
+
+---
+
+## 📊 Results
+
+- See the generated `*_benchmark.md` files for detailed performance and memory usage comparisons.
+
+---
+
+## License
+
+MIT
