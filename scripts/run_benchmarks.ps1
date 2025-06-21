@@ -2,18 +2,18 @@ Set-Location "E:\Education\Saxion\Internship\Projects"
 
 # Paths to executables
 $tools = @{
-    # Transformer = @(
-    #     @{ Name = "Rust"; Cmd = "RustProjects\target\release\csv_transform.exe" }
-    #     @{ Name = "C#"; Cmd = "CSharpProjects\CsvTransformer\bin\Release\net9.0\CsvTransformer.exe" }
-    #     @{ Name = "C# + Rust CLI"; Cmd = "CSharpProjectsUseCLIRust\CsvStreamProcessor\bin\release\net9.0\CsvStreamProcessor.exe" }
-    #     @{ Name = "C# + Rust DLL"; Cmd = "CharpProjectsUseDLLRust\CsharptCsvStreamProcessorUseRustDll\bin\Release\net9.0\CsharptCsvStreamProcessorUseRustDll.exe" }
-    # )
-    # Batch = @(
-    #     @{ Name = "Rust"; Cmd = "RustProjects\target\release\batch_job.exe" }
-    #     @{ Name = "C#"; Cmd = "CSharpProjects\BatchProcessor\bin\Release\net9.0\BatchProcessor.exe" }
-    #     @{ Name = "C# + Rust CLI"; Cmd = "CSharpProjectsUseCLIRust\CsvBatchProcessor\bin\release\net9.0\CsvBatchProcessor.exe" }
-    #     @{ Name = "C# + Rust DLL"; Cmd = "CharpProjectsUseDLLRust\CsharptCsvBatchProcessorUseRustDll\bin\Release\net9.0\CsharptCsvBatchProcessorUseRustDll.exe" }
-    # )
+    Transformer = @(
+        @{ Name = "Rust"; Cmd = "RustProjects\target\release\csv_transform.exe" }
+        @{ Name = "C#"; Cmd = "CSharpProjects\CsvTransformer\bin\Release\net9.0\CsvTransformer.exe" }
+        @{ Name = "C# + Rust CLI"; Cmd = "CSharpProjectsUseCLIRust\CsvStreamProcessor\bin\release\net9.0\CsvStreamProcessor.exe" }
+        @{ Name = "C# + Rust DLL"; Cmd = "CharpProjectsUseDLLRust\CsharptCsvStreamProcessorUseRustDll\bin\Release\net9.0\CsharptCsvStreamProcessorUseRustDll.exe" }
+    )
+    Batch = @(
+        @{ Name = "Rust"; Cmd = "RustProjects\target\release\batch_job.exe" }
+        @{ Name = "C#"; Cmd = "CSharpProjects\BatchProcessor\bin\Release\net9.0\BatchProcessor.exe" }
+        @{ Name = "C# + Rust CLI"; Cmd = "CSharpProjectsUseCLIRust\CsvBatchProcessor\bin\release\net9.0\CsvBatchProcessor.exe" }
+        @{ Name = "C# + Rust DLL"; Cmd = "CharpProjectsUseDLLRust\CsharptCsvBatchProcessorUseRustDll\bin\Release\net9.0\CsharptCsvBatchProcessorUseRustDll.exe" }
+    )
     Parallel = @(
         @{ Name = "Rust"; Cmd = "RustProjects\target\release\parallel_batch_job.exe" }
         @{ Name = "C#"; Cmd = "CSharpProjects\ParallelBatchProcessor\bin\Release\net9.0\ParallelBatchProcessor.exe" }

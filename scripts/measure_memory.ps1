@@ -33,20 +33,20 @@ function Measure-CPUTime {
 }
 
 $tools = @(
-    # @{
-    #     Name = "CSVTransformer"
-    #     Rust = "RustProjects\target\release\csv_transform.exe"
-    #     CSharp = "CSharpProjects\CsvTransformer\bin\Release\net9.0\CsvTransformer.exe"
-    #     CSharpCLI = "CSharpProjectsUseCLIRust\CsvStreamProcessor\bin\release\net9.0\CsvStreamProcessor.exe"
-    #     CSharpDLL = "CharpProjectsUseDLLRust\CsharptCsvStreamProcessorUseRustDll\bin\Release\net9.0\CsharptCsvStreamProcessorUseRustDll.exe"
-    # },
-    # @{
-    #     Name = "BatchProcessor"
-    #     Rust = "RustProjects\target\release\batch_job.exe"
-    #     CSharp = "CSharpProjects\BatchProcessor\bin\Release\net9.0\BatchProcessor.exe"
-    #     CSharpCLI = "CSharpProjectsUseCLIRust\CsvBatchProcessor\bin\release\net9.0\CsvBatchProcessor.exe"
-    #     CSharpDLL = "CharpProjectsUseDLLRust\CsharptCsvBatchProcessorUseRustDll\bin\Release\net9.0\CsharptCsvBatchProcessorUseRustDll.exe"
-    # },
+    @{
+        Name = "CSVTransformer"
+        Rust = "RustProjects\target\release\csv_transform.exe"
+        CSharp = "CSharpProjects\CsvTransformer\bin\Release\net9.0\CsvTransformer.exe"
+        CSharpCLI = "CSharpProjectsUseCLIRust\CsvStreamProcessor\bin\release\net9.0\CsvStreamProcessor.exe"
+        CSharpDLL = "CharpProjectsUseDLLRust\CsharptCsvStreamProcessorUseRustDll\bin\Release\net9.0\CsharptCsvStreamProcessorUseRustDll.exe"
+    },
+    @{
+        Name = "BatchProcessor"
+        Rust = "RustProjects\target\release\batch_job.exe"
+        CSharp = "CSharpProjects\BatchProcessor\bin\Release\net9.0\BatchProcessor.exe"
+        CSharpCLI = "CSharpProjectsUseCLIRust\CsvBatchProcessor\bin\release\net9.0\CsvBatchProcessor.exe"
+        CSharpDLL = "CharpProjectsUseDLLRust\CsharptCsvBatchProcessorUseRustDll\bin\Release\net9.0\CsharptCsvBatchProcessorUseRustDll.exe"
+    },
     @{
         Name = "ParallelBatchProcessor"
         Rust = "RustProjects\target\release\parallel_batch_job.exe"
