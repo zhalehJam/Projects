@@ -1,7 +1,7 @@
 mod csv_transform;
 mod batch_job;
 mod parallel_batch_job;
-
+mod parallel_batch_job_for_huge_file;
 use std::ffi::CStr;
 use std::os::raw::c_char;
 
@@ -48,6 +48,19 @@ pub extern "C" fn run_parallel_batch_job(input: *const c_char, output: *const c_
 }
 
 
+#[no_mangle]
+pub extern "C" fn run_parallel_batch_job_for_huge_file(input: *const c_char, output: *const c_char) -> i32 {
+    let input_cstr = unsafe { CStr::from_ptr(input) };
+    let output_cstr = unsafe { CStr::from_ptr(output) };
+
+    let input = input_cstr.to_str().unwrap_or_default();
+    let output = output_cstr.to_str().unwrap_or_default();
+
+    match parallel_batch_job_for_huge_file::run_parallel_batch_job_inner_for_huge_file(input, output) {
+        Ok(_) => 0,
+        Err(_) => 1,
+    }
+}
 
 
 

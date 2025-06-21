@@ -23,7 +23,7 @@ $tools = @{
 }
 
 # Input sizes
-$inputs = @("results\small_input.csv", "results\large_input.csv", "results\huge_input.csv")
+$inputs = @( "results\small_input.csv", "results\large_input.csv", "results\huge_input.csv") #"results\small_input.csv", "results\large_input.csv", 
 
 # Store benchmark results for table + CSV
 $results = @()
@@ -43,27 +43,56 @@ foreach ($input in $inputs) {
 
         $jsonPath = "results\benchmark_${scenario.ToLower()}_${inputName}.json"
 
-        hyperfine @args --export-json $jsonPath | Out-Null
+        hyperfine @args --warmup 2 --runs 2 --export-json $jsonPath | Out-Null
 
         # Parse and extract best time per tool
         $json = Get-Content $jsonPath | ConvertFrom-Json
         for ($i = 0; $i -lt $json.results.Count; $i++) {
             $toolLabel = $tools[$scenario][$i].Name
-            $bestTimeMs = [math]::Round($json.results[$i].times.median * 1000, 2)
+            $bestTimeMs = [math]::Round($json.results[$i].median * 1000, 2)
+            $stddevMs = [math]::Round($json.results[$i].stddev * 1000, 2)
             $results += [PSCustomObject]@{
                 Scenario = $scenario
                 Input    = $inputName
                 Tool     = $toolLabel
                 "Time (ms)" = $bestTimeMs
+                "StdDev (ms)" = $stddevMs
             }
         }
     }
 }
 
+# Special case: Rust parallel batch optimized for huge file
+$hugeInput = "results\huge_input.csv"
+$output = "results\rustParallelHugeSpecial_output_huge.csv"
+$exeSpecial = "E:\Education\Saxion\Internship\Projects\RustProjects\target\release\parallel_batch_job_for_huge_file.exe"
+
+Write-Host "Benchmarking Special Rust Parallel Optimized for Huge File..."
+
+$cmdSpecial = "`"$exeSpecial`" $hugeInput $output"
+$jsonSpecial = "results\benchmark_parallel_special_huge.json"
+
+hyperfine $cmdSpecial --export-json $jsonSpecial | Out-Null
+
+$json = Get-Content $jsonSpecial | ConvertFrom-Json
+$median = [math]::Round($json.results[0].median * 1000, 2)
+$stddev = [math]::Round($json.results[0].stddev * 1000, 2)
+
+$results += [PSCustomObject]@{
+    Scenario = "Parallel (Optimized)"
+    Input = "huge"
+    Tool = "Rust Special"
+    "Time (ms)" = $median
+    "StdDev (ms)" = $stddev
+}
+
+
+
+
 # Output results table
 $results | Format-Table -AutoSize
 
 # Export to CSV
-$results | Export-Csv -Path "results\benchmark_summary.csv" -NoTypeInformation -Encoding UTF8
+# $results | Export-Csv -Path "results\benchmark_summary.csv" -NoTypeInformation -Encoding UTF8
 
 Write-Host "`Benchmarking complete. Results saved to results\benchmark_summary.csv"

@@ -2,8 +2,7 @@
 
 use std::error::Error;
 use std::fs::File;
-use std::io::BufReader;
-
+use std::io::BufReader;  
 use csv::{ReaderBuilder, StringRecord, WriterBuilder};
 use rayon::prelude::*;
 use serde::Deserialize;
@@ -16,6 +15,16 @@ pub struct User {
     pub email: String,
     pub age: u8,
 }
+
+
+// #[derive(Debug, Deserialize, Clone)]
+// pub struct User {
+//     pub id: u32,
+//     pub name: String,
+//     pub email: String,
+//     pub age: u8,
+// }
+
 
 /// Convert a raw age into a bucketed age group index (e.g., 30 → 3 for "30-39")
 fn age_group_index(age: u8) -> usize {
@@ -95,43 +104,3 @@ pub fn run_parallel_batch_job_inner(input_path: &str, output_path: &str) -> Resu
 
 
 
-// use polars::prelude::*;
-// use polars::lazy::dsl::{col, lit, count};
-// use serde::Deserialize;
-// use std::fs::File;
-
-// #[derive(Debug, Deserialize, Clone)]
-// pub struct User {
-//     pub id: u32,
-//     pub name: String,
-//     pub email: String,
-//     pub age: u8,
-// }
- 
-// pub fn run_parallel_batch_job_inner(input_path: &str, output_path: &str) -> Result<(), Box<dyn std::error::Error>> {
-//     let df = CsvReader::from_path("results/huge_input.csv")?
-//         .infer_schema(None)
-//         .has_header(true)
-//         .finish()?;
-
-//     let grouped = df
-//         .lazy()
-//         .with_columns([col("age").cast(DataType::UInt32)])
-//         .with_columns([
-//             (col("age") / lit(10u32))
-//                 .cast(DataType::UInt32)
-//                 .alias("group"),
-//         ])
-//         .group_by([col("group")])
-//         .agg([count().alias("count")])
-//         .sort("group", Default::default())
-//         .collect()?;
-
-//     let mut grouped = grouped; // <- make mutable
-
-//     CsvWriter::new(File::create("results/rustParallel_output_huge.csv")?)
-//         .include_header(true)
-//         .finish(&mut grouped)?;
-
-//     Ok(())
-// }
