@@ -1,4 +1,3 @@
-// read → act → forget
 using System;
 using System.IO;
 using System.Text;
@@ -10,28 +9,36 @@ public class CsvProcessorManual
     public void Process(string inputPath, string outputPath)
     {
         const int BufferSize = 65536;
-        using var reader = new StreamReader(inputPath, Encoding.UTF8, true, bufferSize: BufferSize);
-        using var writer = new StreamWriter(outputPath, false, Encoding.UTF8, bufferSize: BufferSize);
+        using var reader = new StreamReader(inputPath, Encoding.UTF8, detectEncodingFromByteOrderMarks: true, bufferSize: BufferSize);
+        using var writer = new StreamWriter(outputPath, append: false, Encoding.UTF8, bufferSize: BufferSize);
 
         string? line = reader.ReadLine();
-        if (line == null) return;
+        if (line is null) return;
 
-        // Write header, remove BOM if present
-        line = line.TrimStart('\uFEFF');
+        // Remove BOM if present and write header
+        if (line.StartsWith('\uFEFF'))
+            line = line.TrimStart('\uFEFF');
         writer.WriteLine(line);
 
         while ((line = reader.ReadLine()) != null)
         {
-            var span = line.AsSpan();
-            int firstComma = span.IndexOf(',');
-            if (firstComma < 0) continue;
-            int secondComma = span.Slice(firstComma + 1).IndexOf(',') + firstComma + 1;
-            if (secondComma <= firstComma) continue;
-            int thirdComma = span.Slice(secondComma + 1).IndexOf(',') + secondComma + 1;
-            if (thirdComma <= secondComma) continue;
+            ReadOnlySpan<char> span = line.AsSpan();
 
-            var ageSpan = span.Slice(thirdComma + 1);
-            if (!int.TryParse(ageSpan, out int age) || age <= 30) continue;
+            // Find first 4 commas (3 splits + age field)
+            int first = span.IndexOf(',');
+            if (first < 0) continue;
+
+            int second = span.Slice(first + 1).IndexOf(',');
+            if (second < 0) continue;
+            second += first + 1;
+
+            int third = span.Slice(second + 1).IndexOf(',');
+            if (third < 0) continue;
+            third += second + 1;
+
+            ReadOnlySpan<char> ageSpan = span[(third + 1)..];
+            if (!int.TryParse(ageSpan, out int age) || age <= 30)
+                continue;
 
             writer.WriteLine(line);
         }

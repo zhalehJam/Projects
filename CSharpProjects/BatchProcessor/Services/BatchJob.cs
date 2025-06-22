@@ -1,41 +1,55 @@
 using System;
 using System.IO;
+using System.Text;
 
 namespace Services
 {
     public class BatchJob
     {
+        private const int MaxGroups = 13;
+        private const int ReadBufferSize = 128 * 1024;
+        private const int WriteBufferSize = 64 * 1024;
+
         public void Run(string inputPath, string outputPath)
         {
-            const int MaxGroups = 13; // 0-9, 10-19, ..., 120-129
-            int[] counts = new int[MaxGroups];
+            Span<int> groupCounts = stackalloc int[MaxGroups];
 
-            using var reader = new StreamReader(inputPath, System.Text.Encoding.UTF8, true, 65536);
-            string? line;
-            bool isFirst = true;
+            using var reader = new StreamReader(inputPath, Encoding.UTF8, detectEncodingFromByteOrderMarks: true, bufferSize: ReadBufferSize);
+
+            string? line = reader.ReadLine();
+            if (line is null) return; // empty file
 
             while ((line = reader.ReadLine()) != null)
             {
-                if (isFirst) { isFirst = false; continue; }
-
                 var span = line.AsSpan();
                 int lastComma = span.LastIndexOf(',');
-                if (lastComma < 0) continue;
-                var ageSpan = span.Slice(lastComma + 1);
-                if (!int.TryParse(ageSpan, out int age)) continue;
+                if (lastComma <= 0 || lastComma >= span.Length - 1)
+                    continue;
+
+                var ageSpan = span[(lastComma + 1)..];
+                if (!int.TryParse(ageSpan, out int age))
+                    continue;
 
                 int groupIdx = age / 10;
-                if (groupIdx >= 0 && groupIdx < MaxGroups)
-                    counts[groupIdx]++;
+                if ((uint)groupIdx < (uint)MaxGroups)
+                    groupCounts[groupIdx]++;
             }
 
-            using var writer = new StreamWriter(outputPath, false, System.Text.Encoding.UTF8, 65536);
+            WriteOutput(outputPath, groupCounts);
+        }
+
+        private static void WriteOutput(string outputPath, ReadOnlySpan<int> groupCounts)
+        {
+            using var writer = new StreamWriter(outputPath, append: false, Encoding.UTF8, bufferSize: WriteBufferSize);
             writer.WriteLine("age_group,count");
-            for (int i = 0; i < MaxGroups; i++)
+
+            for (int i = 0; i < groupCounts.Length; i++)
             {
-                int start = i * 10;
-                int end = start + 9;
-                writer.WriteLine($"{start}-{end},{counts[i]}");
+                writer.Write(i * 10);
+                writer.Write('-');
+                writer.Write(i * 10 + 9);
+                writer.Write(',');
+                writer.WriteLine(groupCounts[i]);
             }
         }
     }
