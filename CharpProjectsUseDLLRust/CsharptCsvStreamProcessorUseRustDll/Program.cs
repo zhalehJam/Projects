@@ -9,7 +9,7 @@ class Program
 
     static void Main(string[] args)
     {
-          if (args.Length < 2)
+        if (args.Length < 2)
         {
             Console.Error.WriteLine("Usage: CsvProcessor <input.csv> <output.csv>");
             Environment.Exit(1);
@@ -17,16 +17,27 @@ class Program
 
         var inputPath = args[0];
         var outputPath = args[1];
-        // string input = @"E:\Education\Saxion\Internship\Projects\results\large_input.csv";
-        // string output = @"E:\Education\Saxion\Internship\Projects\results\output_csv_transform.csv";
 
-        var sw = Stopwatch.StartNew();
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
+        GC.Collect();
+
+        var proc = Process.GetCurrentProcess();
+        proc.Refresh();
+        long baseMemory = proc.PrivateMemorySize64;
+        var stopwatch = Stopwatch.StartNew();
+
         int result = csv_transform(inputPath, outputPath);
-        sw.Stop();
 
-        // Console.WriteLine(result == 0
-        //     ? $"[csv_transform] Success in {sw.ElapsedMilliseconds} ms"
-        //     : "[csv_transform] Failed");
+        stopwatch.Stop();
+        proc.Refresh();
+        long peakMemory = proc.PeakWorkingSet64; // <-- Use this for real peak memory
+
+        long netMemoryUsed = peakMemory - baseMemory;
+
+        Console.Write($"peak m: {peakMemory / 1024.0 / 1024.0:F4} MB , ");
+        Console.Write($"net m: {netMemoryUsed / 1024.0 / 1024.0:F4} MB , ");
+        Console.Write($"t: {stopwatch.ElapsedMilliseconds} ms");
     }
 }
 

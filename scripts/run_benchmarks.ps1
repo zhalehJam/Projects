@@ -2,24 +2,24 @@ Set-Location "E:\Education\Saxion\Internship\Projects"
 
 # Paths to executables
 $tools = @{
-    Transformer = @(
+    StreamProcessor = @(
         @{ Name = "Rust"; Cmd = "RustProjects\target\release\csv_transform.exe" }
-        @{ Name = "C#"; Cmd = "CSharpProjects\CsvTransformer\bin\Release\net9.0\CsvTransformer.exe" }
-        @{ Name = "C# + Rust CLI"; Cmd = "CSharpProjectsUseCLIRust\CsvStreamProcessor\bin\release\net9.0\CsvStreamProcessor.exe" }
-        @{ Name = "C# + Rust DLL"; Cmd = "CharpProjectsUseDLLRust\CsharptCsvStreamProcessorUseRustDll\bin\Release\net9.0\CsharptCsvStreamProcessorUseRustDll.exe" }
+        @{ Name = "CSharp"; Cmd = "CSharpProjects\CsvTransformer\bin\Release\net9.0\CsvTransformer.exe" }
+        @{ Name = "CSharpRustCLI"; Cmd = "CSharpProjectsUseCLIRust\CsvStreamProcessor\bin\release\net9.0\CsvStreamProcessor.exe" }
+        @{ Name = "CSharpRustDLL"; Cmd = "CharpProjectsUseDLLRust\CsharptCsvStreamProcessorUseRustDll\bin\Release\net9.0\CsharptCsvStreamProcessorUseRustDll.exe" }
     )
-    Batch = @(
+    BatchProcessor = @(
         @{ Name = "Rust"; Cmd = "RustProjects\target\release\batch_job.exe" }
-        @{ Name = "C#"; Cmd = "CSharpProjects\BatchProcessor\bin\Release\net9.0\BatchProcessor.exe" }
-        @{ Name = "C# + Rust CLI"; Cmd = "CSharpProjectsUseCLIRust\CsvBatchProcessor\bin\release\net9.0\CsvBatchProcessor.exe" }
-        @{ Name = "C# + Rust DLL"; Cmd = "CharpProjectsUseDLLRust\CsharptCsvBatchProcessorUseRustDll\bin\Release\net9.0\CsharptCsvBatchProcessorUseRustDll.exe" }
+        @{ Name = "CSharp"; Cmd = "CSharpProjects\BatchProcessor\bin\Release\net9.0\BatchProcessor.exe" }
+        @{ Name = "CSharpRustCLI"; Cmd = "CSharpProjectsUseCLIRust\CsvBatchProcessor\bin\release\net9.0\CsvBatchProcessor.exe" }
+        @{ Name = "CSharpRustDLL"; Cmd = "CharpProjectsUseDLLRust\CsharptCsvBatchProcessorUseRustDll\bin\Release\net9.0\CsharptCsvBatchProcessorUseRustDll.exe" }
     )
-    Parallel = @(
+    ParallelBatchProcessor = @(
         @{ Name = "Rust"; Cmd = "RustProjects\target\release\parallel_batch_job.exe" }
-        @{ Name = "C#"; Cmd = "CSharpProjects\ParallelBatchProcessor\bin\Release\net9.0\ParallelBatchProcessor.exe" }
-        @{ Name = "C# + Rust CLI"; Cmd = "CSharpProjectsUseCLIRust\CsvParallelBatchProcessor\bin\release\net9.0\CsvParallelBatchProcessor.exe" }
-        @{ Name = "C# + Rust DLL"; Cmd = "CharpProjectsUseDLLRust\CsharptCsvParallelBatchProcessorUseRustDll\bin\Release\net9.0\CsharptCsvParallelBatchProcessorUseRustDll.exe" }
-        @{ Name = "Rust_Speciall"; Cmd = "RustProjects\target\release\parallel_batch_job_for_huge_file.exe"}
+        @{ Name = "CSharp"; Cmd = "CSharpProjects\ParallelBatchProcessor\bin\Release\net9.0\ParallelBatchProcessor.exe" }
+        @{ Name = "CSharpRustCLI"; Cmd = "CSharpProjectsUseCLIRust\CsvParallelBatchProcessor\bin\release\net9.0\CsvParallelBatchProcessor.exe" }
+        @{ Name = "CSharpRustDLL"; Cmd = "CharpProjectsUseDLLRust\CsharptCsvParallelBatchProcessorUseRustDll\bin\Release\net9.0\CsharptCsvParallelBatchProcessorUseRustDll.exe" }
+        @{ Name = "RustOptimized"; Cmd = "RustProjects\target\release\parallel_batch_job_for_huge_file.exe"}
     )
 }
 
@@ -55,7 +55,7 @@ foreach ($input in $inputs) {
             $stddevMs = [math]::Round($json.results[$i].stddev * 1000, 2)
             $results += [PSCustomObject]@{
                 Scenario = $scenario
-                Input    = $inputName
+                InputSize   = $inputName
                 Tool     = $toolLabel
                 "Time (ms)" = $bestTimeMs
                 "StdDev (ms)" = $stddevMs

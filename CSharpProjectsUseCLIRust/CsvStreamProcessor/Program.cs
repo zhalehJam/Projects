@@ -14,7 +14,7 @@ class Program
 
         var inputPath = args[0];
         var outputPath = args[1];
-         
+
         var rustExePath = @"E:\Education\Saxion\Internship\Projects\RustProjects\target\release\csv_transform.exe";
 
         var psi = new ProcessStartInfo
@@ -27,14 +27,27 @@ class Program
             CreateNoWindow = true
         };
 
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
+        GC.Collect();
+        var proc = Process.GetCurrentProcess();
+        proc.Refresh();
+        long baseMemory = proc.PrivateMemorySize64;
+        var stopwatch = Stopwatch.StartNew();
+
         using var process = Process.Start(psi);
         process.WaitForExit();
 
         string stdout = process.StandardOutput.ReadToEnd();
         string stderr = process.StandardError.ReadToEnd();
 
-        // Console.WriteLine("Rust CLI Output:\n" + stdout);
-        // Console.WriteLine("Rust CLI Errors:\n" + stderr);
-        // Console.WriteLine($"Exit code: {process.ExitCode}");
+        stopwatch.Stop();
+        proc.Refresh();
+        long peakMemory = proc.PeakWorkingSet64; // <-- Use this for real peak memory
+        long netMemoryUsed = peakMemory - baseMemory;
+
+        Console.Write($"peak m: {peakMemory / 1024.0 / 1024.0:F4} MB , ");
+        Console.Write($"net m: {netMemoryUsed / 1024.0 / 1024.0:F4} MB , ");
+        Console.Write($"t: {stopwatch.ElapsedMilliseconds} ms");
     }
 }

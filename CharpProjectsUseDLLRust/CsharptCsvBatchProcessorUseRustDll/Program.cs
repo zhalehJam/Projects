@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
-
+using System.IO;
+using System.Text;
 class Program
 {
     [DllImport("rust_csv.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -17,15 +18,26 @@ class Program
 
         var inputPath = args[0];
         var outputPath = args[1];
-        // string input = @"E:\Education\Saxion\Internship\Projects\results\large_input.csv";
-        // string output = @"E:\Education\Saxion\Internship\Projects\results\output_batch_job.csv";
+
+       GC.Collect();
+        GC.WaitForPendingFinalizers();
+        GC.Collect();
+        var proc = Process.GetCurrentProcess();
+        proc.Refresh();
+        long baseMemory = proc.PrivateMemorySize64;
+        var stopwatch = Stopwatch.StartNew();
 
         var sw = Stopwatch.StartNew();
         int result = run_batch_job(inputPath, outputPath);
         sw.Stop();
 
-        // Console.WriteLine(result == 0
-        //     ? $"[run_batch_job] Success in {sw.ElapsedMilliseconds} ms"
-        //     : "[run_batch_job] Failed");
+        stopwatch.Stop();
+        proc.Refresh();
+        long peakMemory = proc.PeakWorkingSet64; // <-- Use this for real peak memory
+        long netMemoryUsed = peakMemory - baseMemory;
+
+        Console.Write($"peak m: {peakMemory / 1024.0 / 1024.0:F4} MB , ");
+        Console.Write($"net m: {netMemoryUsed / 1024.0 / 1024.0:F4} MB , ");
+        Console.Write($"t: {stopwatch.ElapsedMilliseconds} ms");
     }
 }

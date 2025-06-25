@@ -26,15 +26,27 @@ class Program
             UseShellExecute = false,
             CreateNoWindow = true
         };
-
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
+        GC.Collect();
+        var proc = Process.GetCurrentProcess();
+        proc.Refresh();
+        long baseMemory = proc.PrivateMemorySize64;
+        var stopwatch = Stopwatch.StartNew();
+        
         using var process = Process.Start(psi);
         process.WaitForExit();
 
         string stdout = process.StandardOutput.ReadToEnd();
         string stderr = process.StandardError.ReadToEnd();
 
-        // Console.WriteLine("Rust CLI Output:\n" + stdout);
-        // Console.WriteLine("Rust CLI Errors:\n" + stderr);
-        // Console.WriteLine($"Exit code: {process.ExitCode}");
+        stopwatch.Stop();
+        proc.Refresh();
+        long peakMemory = proc.PeakWorkingSet64; // <-- Use this for real peak memory
+        long netMemoryUsed = peakMemory - baseMemory;
+
+        Console.Write($"peak m: {peakMemory / 1024.0 / 1024.0:F4} MB , ");
+        Console.Write($"net m: {netMemoryUsed / 1024.0 / 1024.0:F4} MB , ");
+        Console.Write($"t: {stopwatch.ElapsedMilliseconds} ms");
     }
 }
