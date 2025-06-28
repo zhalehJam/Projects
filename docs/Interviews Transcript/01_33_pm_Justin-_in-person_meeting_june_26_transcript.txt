@@ -1,0 +1,76 @@
+Speaker 1 | 00:00
+If you remember the last time, we were just talking about the problem and things. Then I gathered the problem for the memory usage as like C# and springs as I said before. I ran those projects. The project right now is in three or four ways. One is the pre-ROS. One is with the pure C#, and
+then C# calls the Rust, but calls the Rust as a dealer. It was good. These are the results based on the memory usage. I have the results for speed, and it's not actually for speed, but for how much time it takes.
+Yeah, so it's using less time faster. If you remember, I talked about the data size that I had. I had small, large, and huge. The small started from 10,000 and a hundred thousand, and 1 million records for the huge one.
+So I will just share these data quickly for you. You can see for these scenarios, it'll be just a little bigger maybe. This is the more this f is. Okay, awesome. Yeah. Before I start to explain this one, I want to say about the projects that I checked all these things in. Three scenarios. One is for steering processor, just read and write. The other one is the batch processor, and the third one is a parallel batch processor.
+So to put them in the parallel way, there are results you can see. If I said it incorrectly, yes, for net memory usage. Because at first I calculated the memory usage for totally calling. But then we found out if I want to apply this change to the real world project, they already have a running project. That means the base memory usage for CR is not zero already.
+So I just calculated the exact part of the cost that needs to be replaced or checked. So your results, I can say this for pure Rust, it's using much less memory just a little bit. And then that. And so we can see still we have Ross and that's the only memory exactly.
+And for CSR, usually the way high and tall candle they have. The good thing is, when I called the Dll during the CSR project, I just called the Dll from Russia. I didn't do anything doing it.
+In most of the scenarios, especially for CSRs, like half, double. Sorry. The half memory using, for parallel batch processor is for small. It is not very different because the amount of the dataset is not that much.
+It's similar. But for this one for the large datasets, like his memory usages have, and it's for most of them is like this, the memory usage. For this part, I will show you the results of CPU time.
+The thing is, it's not very that different here. But like a doubles. But it's still faster most of the times. We can say spot here for the large CSR is faster. Sometimes CSR becomes faster for usage, but it uses a much smaller size of memory than in some parts.
+It's like for small CSRs, always the CSR is faster, but for the large one, sometimes it's the change. But the thing is I changed. I put some other scenario as a fast CSR. It uses more memory but becomes faster than the CSR. We can see it's like two and a half times faster, but memory usage becomes bigger and bigger.
+That's one of the other strategies I use. So these are all for, as I said, for smaller, large the large size, I think it can be a thing as a CSR can be the option in this case based on the chart. But here, let me show you the huge amount of data. I just separate them to show the last data for a certain person, for the huge data, we can see CSR is fast, it's very fast, it worked very well. I'm really proud of it. This is two seconds, especially with the pure Ross.
+It's taking ten seconds, but it's just in a millisecond. It's just working. Give you there, but when I optimized it, it became faster. The huge face is very visible, coming faster. But we will see the memorial usage on the other side.
+It's like with the huge data, it's become a little risky to change it here. SA, where is my huge data? It just disappears, just suddenly. She has a misp here. You can say the usage for us is almost zero.
+It's not zero, it has a number, but less than one. [Laughter] Because I check it right now, that's why it's zero. Was it? For the stream processor, the memory usage is not very different. Good, but when I put it in the parallel batch, it's huge.
+If I want it, it becomes fast. It uses much memory. But if just pure AS is used less, but it will be slower. This is so slow. But here, C# is just having its memory usage, and the parallel batch is good. Yeah, it's like for here, but it's so obvious in the parallel batch.
+So I think, the C# is working in the background that's working very well with the parallel. It's prepared everything. And these are old, let's say, older results. I already have the roadmaps. A small roadmap. I want to share it with you, so we'll share a document here.
+Based on this, maybe we can check if the memory usage is a concern, yes or no. If no, you are experienced with performance issues. No, so keep what keeps sharp but you won't change it. Just follow what you already do.
+But if yes, you have a problem with what kind of dataset you have, it's very huge. You can check your scenario back of it or it's small, medium, and you can think as I use the ROS as the other. It's for this one.
+It's just the decided way. So make it everything easier than just checking all this data at the same. No. So let's say these are the, all information I gathered during this time. Now I want to know about your opinion. How is it, can be useful to help people to start thinking as well. Or not really.
+Speaker 2 | 08:47
+That a project. It could be because if you look at the data you've gathered, which you can clearly see, is that C# has a very high base memory usage. But that means that if you get large data sizes, it doesn't grow that much. It stays sort of the same or maybe a bit more.
+But because the overhead is apparently high, and at lower volumes, it really matters. But at higher volumes, it doesn't really matter as much. Whereas in Rust, the base is very low base memory usage.
+But the more data you have to process, the more you have to load, the more memory you're using. Yeah, that sounds interesting to see, especially because our... As not that big. So we do use C# and we are micro-architecture, so our services aren't that busy usually. Which means that the overhead of running them in C# might not be worth it because the data is not large enough.
+I think the highest amount of data we currently have is 200000.
+Speaker 1 | 09:55
+So that's.
+Speaker 2 | 09:57
+And even then, we would never query all at the same time.
+Speaker 1 | 10:01
+Exactly that that's the things I think.
+Speaker 2 | 10:04
+Yeah, so we would never do something with all of them at the same time. That would be way slow. And so for us, it would probably honestly be the best option if you could just rewrite the entire application in Rust, because our real only problem is the memory usage issue. We have some performance issues, but they're not really related to the language and more just the architecture in general.
+So I think actually for our products, it would be better to do it in than.
+Speaker 1 | 10:41
+Thank you.
+Speaker 2 | 10:42
+It doesn't work if we, of course, had the time.
+Speaker 1 | 10:46
+Exactly, that's the latter.
+Speaker 2 | 10:48
+Theoretically, it wouldn't be better to do it in Rust. Of course there's the issue of you need to know Rust, you need to know, but just data wise, it would be a lot better.
+Speaker 1 | 10:57
+It's just making sure during this project. I know just migrating to the ROS it will be a very huge change to the wall project. It's impossible things just change the wall project.
+But like making PE, I want to make people think about ROS as an option then they can change check and the things about if they have time, experience enough or is it worse for them or not?
+Speaker 2 | 11:29
+I think if I would redo the project now and I would have to stay there, I might actually consider doing some Rust because it really wins in the.
+Speaker 1 | 11:40
+Yeah special. This part is, as you said, most of the time we never load all the data. Millions or records that. But Evan, if that's happened just changing the scenario to the parallel where or just separate them to the small data, that's can.
+Speaker 2 | 12:05
+Yeah, I think our data sites might not be big enough for us, so it wouldn't really matter too. Yeah, because I think for specifically for my project because the data is not that big, right? Probably it would be it's big.
+Speaker 1 | 12:21
+But not like this huge or massive.
+Speaker 2 | 12:25
+I think the best option would just be to do it in Rust because the performance doesn't really matter that much on such small amounts. I think the maximum amount of data that we would ever gather, like at once, would be maybe a bit over 200.
+You know, we need to like this. If I need more data than that, I would really question what I was doing.
+Speaker 1 | 12:50
+Yeah, it's like, why do you need this much of data at the same time at one process? Yeah, so you think these are usable? This information is it? Yeah, because I want to know about your feedback. This you already told me.
+That's good, that's great. Thank you. It's very clear, feedback I can ever have, but so that's good.
+Speaker 2 | 13:21
+I think, like, the only thing I would really do is if you... Of course I know that part and everything. If you were to present this to someone who doesn't know about the projects, I would be a bit more in depth about your testing and how you can do it.
+But of course I know so.
+Speaker 1 | 13:35
+And yeah, because I try to work on the projects to make them good enough. Not very well. Yeah, because I know if I want to follow the C# paths, I will find the PL way that's make it very fast or block.
+But I know with in the most of the projects people don't have time to do that much or just didn't concentrate. Yeah, it's or they didn't think to make it much better. It's good enough, it's usually as... Yeah, so great ahead and thank you for feedback that's actually the thing I needed for it, right?
+And this, I mean your feedback that you said can be considered in your current project that makes it much better. So these are... And for file results, you think these results are understandable or should I change the part or numbers in suggestion?
+Speaker 2 | 14:44
+No, I think it's fine. The only thing I was like, if you're doing an actual presentation for the graduation projects or whatever. Yeah, I was just put a bit more about what data you used to test, but I know, right?
+Because we thought before. But, maybe a bit more about, this is the action I did during the processing or something like that. Just a quick one or two lines about it, just so people know.
+Speaker 1 | 15:15
+What was the project? What's this scenario doing? Yeah, what exactly the project doing?
+Speaker 2 | 15:22
+So, I mean, I should do the same thing with this. Yeah, so say, I did, you know, I made some inserts into the database like one million times or something like that people. Yeah, okay.
+Speaker 1 | 15:34
+Yeah, and that sounds fun. Yeah, great, okay, thank you. No. Thank you very much. This was... No. So.

@@ -1,0 +1,136 @@
+Speaker 1 | 00:00
+That's good. So, as I explained it before, I try to separate them by the... That's just pure CR project. Calling the ASA file to the CR or just use the DLL, Rust as a DLL in C# application.
+I had three data sets. It's large, small, and huge. From starting from 10,000 to 1 million records, and PY scenarios for Steam processor, batch processor and parallel batch processor. After comparing all this and calculating the memory usage and the time, I changed the memory usage as you said.
+It's calculating the memory as you said before and just calculate exactly the amount of memory usage. This has it. I call it net memory. So that's exactly the parts that use the memory or call it, just having.
+Speaker 2 | 01:06
+Lu memory extra amount of memory.
+Speaker 1 | 01:10
+Exactly. For time I calculated... So that's the other parts that will not be affected. These are the results for smaller and larger data sets, especially for the net memory.
+So we can see, as everyone said, this "Ross uses little memory" every time we hear it. So now we can see it as a result. And these results are after several times of looking, gathering the benchmark. Each benchmark runs several times, but I do all these data for four times average of four times gathering. The result was Ross where you use little memory.
+Speaker 2 | 01:57
+But it's only.
+Speaker 1 | 01:59
+Just a.
+Speaker 2 | 02:01
+Of the.
+Speaker 1 | 02:02
+Exactly.
+Speaker 2 | 02:03
+C sharp solution.
+Speaker 1 | 02:04
+And we can see this for the large huge one, you will see it's almost zero that the one was. Yeah.
+Speaker 2 | 02:14
+So the way we use it is its memory, it's not continually collecting memory, but it's just using one baseline to process the whole file. Exactly. And reusing memory constantly instead of letting it grow and grow.
+Speaker 1 | 02:32
+Yeah, no, that's it. And... I can say when I call it during the as a dealer, as a library and a C# code. So it's almost using half of the memory usage as the pure C# work for the small data. It is not very visible.
+That's the difference. But for the huge ones, someone is saying how much is it? So for most of them, it's just half of it.
+Speaker 2 | 03:02
+So that again probably has to do with how much memory is stored. And for the DLL versions, probably there's quite some overhead in memory because there's not much difference between using the CLI or DLL.
+Yeah.
+Speaker 1 | 03:21
+But I find out this, give me the advice that maybe during the calling the CLI, run it through another process. So this gathering memory usage process just called one processor. Memory usage, both of them.
+So I have to check this one more time to see if my data is collecting all the memory usage of both processors or just one. I need to double check.
+Speaker 2 | 03:52
+It's because the conclusion that you can take from this Japan is that there is no difference between large and small for the CLI and the DLL versions. And it's exactly the same for a large and a small file, so somehow the size does not matter.
+And that means that it's not caching everything in memory within C#. You can see the large file takes way more memory than the small file, so somehow a lot of memory is being generated that's not cleared yet automatically.
+And for the other versions, it's the same. So, then what you suspect is that the code from the DLL version is probably almost the same as the REST version for processing the file. Yeah. So probably this amount of memory is the amount of memory that's used in the DALL.
+And so this part of the memory.
+Speaker 1 | 05:02
+Are there remains.
+Speaker 2 | 05:03
+Something different. It's something just that uses just for starting DALL or.
+Speaker 1 | 05:09
+Just starting a DALL in the cash and calling them.
+Speaker 2 | 05:12
+So the overhead, yeah.
+Speaker 1 | 05:16
+That' exactly. That's because I just was using a little and the same algorithm knowledge is behind them, the core process. But when I called it as a DALL in the C# I just calculated that amount of memory is calling the DALL but that means it's still stored in some way.
+Speaker 2 | 05:39
+Some sohe in between maybe in themunication between the DL and C sharp application.
+Speaker 1 | 05:45
+Yeah.
+Speaker 2 | 05:45
+It's that it's still stored in the memory.
+Speaker 1 | 05:48
+Yeah that's possible. So I did it for this one and let me first show you the CPU time. How much time is it using? So we can see here this for the small and large. Rust is faster. Maybe not double-sized, but sometimes it's faster for the steering processor. For the large size it's good, but it's not fast as C#. C# is sometimes become faster for the page processor, it's not very
+when the memory usage is half, partic specs is lo.
+Speaker 2 | 06:45
+That's It's a bit strange if I look at the results. So it's quite often Rust is faster than C#. sharp.
+Speaker 1 | 06:54
+Yeah.
+Speaker 2 | 06:54
+Except for the large files, there you have to... What's the difference between Rust and fast Rust?
+Speaker 1 | 07:04
+The thing is, here it's not very different. We can see a step faster. And I changed the. You say, the crate it use it the logic behind this and the main algorithm is the same. They do the same data, but I made it faster.
+And if you remember, last time we checked it's used around one gig. Memory usage. But I found it was the problem I fixed. This is a different way of the defining the variable in great way. The sorting parts. I leave the sort parts because the others are to the sort the data.
+So it use less memory but it become faster based on the crave it use. And it's like the tools that use it, but, not very different, but still faster with the from C sharp they use less memory. And somehow, but I've just put this fast results for parallel batch processing. I just applied in that case.
+Speaker 2 | 08:12
+It's a huge difference for the large data set, for the small data set, it doesn't matter if it's with the small data set, it's... Yeah, it's way faster than C#. sharp.
+Speaker 1 | 08:24
+Yeah, but the thing is I put this logic as a dealer. It still becomes slow. Yeah, because maybe the thing you said is just put it overhead in the C# sharp.
+Speaker 2 | 08:36
+That's a problem. C# has to prepare the data to be communicated to the DLL, yeah, because that needs to be in a certain format to be able to communicate it. And it's cross-process. No, not for DLL, that's not the perfect way.
+But that could be within the boundaries of the DLL and C# application. Maybe it needs to copy the data.
+Speaker 1 | 09:00
+Yes.
+Speaker 2 | 09:01
+Memory can use it. That's why those done versions become slower.
+Speaker 1 | 09:08
+But slower... Yeah, but I just call the ROS. And in the fast ROS, it's very fast. Of course.
+Speaker 2 | 09:18
+Slow calling another process or opening a library that's just a fairly slow thing to do, so that would be the problem.
+Speaker 1 | 09:29
+So these are the data, but now we go for the huge datasets. It's just Ross, how much time does it use? It's for a million records. It's used a lot of time, that's the reason actually I separate them here because it makes the other parts unreadable.
+So I got it. We can see it. How much faster is it for the huge? This optimized version, the DDL of that, how much faster is it when the other version was? I want the pure Ross, but it has another downside in the memory usage. It uses so much memory. We can see these results are maybe a little different or not very effective, but especially for this part, it's very huge. We can see it here now as it's fast.
+And that's when I call it during the deal. It was a lot of memory.
+Speaker 2 | 10:37
+Yeah.
+Speaker 1 | 10:38
+Because it's become faster but use memory instead of its so it catches data.
+Speaker 2 | 10:43
+Yeah, that makes it faster, but because but of course then that's that you know this is now where we uses almost no memory. Yeah.
+Speaker 1 | 10:55
+Very slow, exactly. It's very slow. So they are the gathered results and based on them it's a very simple decision. If we want, they can just follow it. If the memory usage is not a problem, yes.
+If they have a performance issue, no. So C#... So think about Ross, you don't need it. But if you have a problem based on your data size, it's huge. You can analyze the scenario in which scenario you want to follow it, but if it's the smaller, medium size, maybe you can think about migrating to the ROS for the others because for the huge we can see if they change the scenario as from the parallel to the steering process or patch process, it can become effective or not.
+So these are all the gathered results in the.
+Speaker 2 | 11:55
+It would be. Yeah, advocate for the devil, I would say. Isn't this just about picking the right package? Both for Western Sea Sharp?
+Speaker 1 | 12:06
+It can be, but it's a need. You need time to find out which package you should use and how much is affected. But right now we have this result here so you can find out if it's still very valuable for you to think about Rust or not, because we know if we want to go deeper in any language, we can make them better or worse.
+Here you can see these results. Then, it helps you to make a decision easier and make sure at least this step of the decision you want to make is clear for you and it's already done for you.
+Yeah, well, then after that, you can go through other steps and find out if you want to change, check, or the other package. You want to think about it or not. But until this time, you can decide based on this.
+It's the first step you'll have to do. It's.
+Speaker 2 | 13:11
+Yeah, but it hinders a bit here. I'm still thinking about it. It hinders a bit about the goal of your research is using Rust, better or not. And then the conclusion is maybe in the left part, if you wanted to be predictable, then you should move to Rust.
+That's maybe the most important thing, because in that you never know what it's going to do, if it's going to use a lot of memory, yes or no, and if in Rust, it's way more deterministic about what's happening about the memory usage.
+Speaker 1 | 14:01
+This will become a cross with the concurrency issue, and that's a far less concurrency. That's DAGA if you have the parallel things or the threads that communicated together or affecting the same places. That's one of the things I focused on here.
+But because I cannot gather the results of this concurrency, I just put it as one of the topics. I did a little benchmark or project for it. But that means if you have that issue, you can think about this as one of the advantages of us.
+But as you said, if this part is... You want to be predictable and make sure everything is working good, internet, then that's the thing I really want to say. I'm not really trying to say you have to change it or migrate to the ROS, you can think about it. Ross.
+Speaker 2 | 15:04
+Do you use parallel threads to parse a big CSV file?
+Speaker 1 | 15:12
+M that's cra. It's already did it has a probably a it has a one of.
+Speaker 2 | 15:21
+This splits the file into five parts or what? How does the.
+Speaker 1 | 15:27
+And remember it's separated into boxes as I know, as I understand it correctly. Then it works on them. It's based on that. The last time I checked, it was four buckets, but I'm not sure if I changed it right now or not. But it's like separating them for several buckets and then working on them at the same time. Here is just part of my batch process, it's a step No.
+Speaker 2 | 16:02
+The reason why I asked this question is because, reading and parsing the CSV file normally isn't the problem. The problem is moving the data to the right place, like for example, to a database. That's where the real problem is.
+Because if you would write a Rust module to parse that file, that can be so fast that you wouldn't even be able to notice the parsing time. It can be done?
+Speaker 1 | 16:35
+No. It will be... Work on them to get here the logic behind it, they have the chunk size. How much is it divided into? Thousands. Sorry, yeah, and then walk on up is this the faster one or the normal? This is the normal
+Yeah.
+Speaker 2 | 17:07
+That's so these were questions that, of course, they're going to be critical about. What actually are you testing? And what are you comparing? That is an important thing, of course, that you're not comparing different things.
+Speaker 1 | 17:21
+No, they like the conclusion I just explained to them what exactly each part does or try to work on them or on the day. Yeah, the minds are behind it. What is it? I'm really not going deeper into it, but what makes it a reason to gather these results because I really try to focus on making decisions.
+If that's why this is happening. Yeah.
+Speaker 2 | 17:55
+And.
+Speaker 1 | 17:56
+Yeah.
+Speaker 2 | 17:57
+The others.
+Speaker 1 | 17:59
+Yeah, okay. No, that's good. Thank you for that.

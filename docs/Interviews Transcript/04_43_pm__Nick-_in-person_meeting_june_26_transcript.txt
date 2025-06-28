@@ -1,0 +1,155 @@
+Speaker 1 | 00:00
+He ever. So, I will make a quick comparison as you remember, it's like comparing the C# and Rust results. That's it completely. But see how they work during which condition. So, I had a trace for benchmarks for artifacts. One is a C# project. Pure C# project, pure Rust project. Then I tried to use and apply the Rust now, calling the Rust project during the C# as a ZIPI and or make a library of it and call it during the Rust project as a DLL. The scenario was, I have three scenarios. One is for batch, sorry, steering processor.
+That's just calling and reading and writing and leaving the memory. The second one is for batch processor, just calling the packers and working on them and still using the memory. Then, the ones parallel batch processors.
+So I have that batch processor function in a parallel way using several threads to color. And I have three data sets. One is small, large and huge size. Yeah, it's... So, it starts from 10,000 records, 100,000 records and 1 million records.
+Yeah. And here we see the small and large data results separated in each one.
+Speaker 2 | 01:42
+How much larger is large than Is.
+Speaker 1 | 01:47
+Around a hundred ,000 records.
+Speaker 2 | 01:51
+And small.
+Speaker 1 | 01:52
+10,000 records.
+Speaker 2 | 01:54
+Ten times large.
+Speaker 1 | 01:56
+Okay, yeah, it's good. So this means for now, I just gathered these results, these are based on just net memory usage. It's not just the peak of the memory usage.
+It's not that I have the peak memory usage but this is just a part of it that means exactly which part, how much memory to use it without thinking and leave that parts that already CR project runs with the full memory.
+I will leave that part because I want to see if we put this project in a real one and contribute with the real projects. How much memory changes usage will be changed to thes. And so let's go over results you can see here for the small and large for the streaming processor. Based on the scenario, it has a as we can see everyone.
+If you're just looking everywhere, you can see people say Rust is useless memory. And we can see, yeah, the pure Rust project useless memory, all of the kind. But then, we come for. Just calling during the d ll that's the one of the best options we can have it probably.
+Speaker 2 | 03:21
+You still need some way of using it.
+Speaker 1 | 03:24
+Exactly. So I really tried to look for it that way because, I think about using it as a library or calling the op file directly or as a microservices service. But microservice is still out of this scope because it needs that structure or
+Because you can completely call Rust without any other problem. But I will exactly focus on calling the Dll because I think it's the best option. We can have it here. So, you can see for the small ones a little...
+And memory usage changed. Based on the pure C# we're calling the Dll, but for the large size in the Dll processor, it's almost half of it. The memory usage becomes half. It's like this for the others almost...
+That's not very different. That's for the large size again. It's cut to half the memory usage. So here's kind of it. It's not completely half of it, but this is in megabytes. Yup. And it's calculated based on four times running each benchmark result. Each benchmark came from ten times running and then after that, I ran it at each benchmark four times.
+So I gathered that average amount is not actually... But it's an average. Yeah. This is in megabytes. So that means here you can see when the C# is calling the Dll, it becomes faster or uses less memory than yours. You mean.
+Speaker 2 | 05:34
+Well, let's say you are testing it this way, and you'll have like the ten thousands and everything. Then, for example, is your first attempt with C# normal C#, and this year. Like a sample size of ten.
+And a sample size of hundred. A sample size of thousands. He says in any year you try something like very big something like this. And then you can create a graph like this. And you can make an estimation on what will it be.
+If this is the size become bigger or bigger than you can estimate your graph. You can put it somewhere here. You can make connections. And if you have this graph for both Rust and C#, because what I'm interested in is the size Rust more like this.
+So.
+Speaker 1 | 06:40
+Yeah, the sizes angles.
+Speaker 2 | 06:42
+Sorry, matter a lot if you know that, because then you can kind of expect what happens if we have a project that somehow uses one gig of memory. That's just... Yeah, I think it's interesting, but not saying that you need to do that.
+Speaker 1 | 07:04
+But, maybe I can do it, because right now I have the number of.
+Speaker 2 | 07:09
+If you do like 234 more, you already have a graph.
+Speaker 1 | 07:13
+Kind of. Yeah.
+Speaker 2 | 07:15
+Sizes. And then you can at least make a prediction. But it does on higher numbers because, yeah, you're not gonna test it like five keys because it's way too muche.
+Speaker 1 | 07:28
+But. no, I'm sure I like this idea. I didn't talk about the graphics. I just tried to compare results, but this can help for prediction. Yeah.
+Speaker 2 | 07:41
+The addition you can at least say if it is exponential, that's called exponential. They call it like that's yeah, that means that that's there.
+Speaker 1 | 07:54
+The E becomes faster and yeah.
+Speaker 2 | 07:56
+Goes higher and higher up there in very high numbers. If you go from 10GB to 11GB, that will have a lot of impact. If this is correct?
+Speaker 1 | 08:08
+Yeah.
+Speaker 2 | 08:08
+I got this and maybe that... I don't think that is it. I can say, to be fair, because maybe the small step in later numbers can have a lot of impact. It's... Sharpen, I have no idea, but it's interesting.
+How much work this just so that's go.
+Speaker 1 | 08:31
+We just have time on this week at the end of this week.
+Speaker 2 | 08:34
+So then the question is this for you: five minutes' work with just running a few and then you can make a graph, or is this more than we were it.
+Speaker 1 | 08:44
+Yeah.
+Speaker 2 | 08:44
+That is your choice. That is a number and nice to see it shows at least that it has a lot of potential. Yes, Boma is only with this if your teacher or someone else asks like, "How about with 10GB?" You don't have a direct answer.
+As you have the graph, you said, well.
+Speaker 1 | 09:08
+You can. Yeah, that's the reason I liked your idea. Because at least based on these data or I changing or.
+Speaker 2 | 09:18
+You can change the graph maybe already.
+Speaker 1 | 09:22
+Yeah with these numbers because I just made a script for creating a dataset. I just changed it and gave me the data engine. I will run the benchmark, that's all I need to do. Then put it here. The remaining Excel will be done for me to create these things. It will be so okay that's nice for CPU time.
+That's how much is, take time. Space of the millisecond. So again for the small process it's fast, but yeah, but we can see the CR calling the rosta is not very different, but here you can say DLLA take a little more time, it's become slower or the steering process.
+Speaker 2 | 10:11
+Yeah, and you're but.
+Speaker 1 | 10:14
+Faster but.
+Speaker 2 | 10:16
+Because you need to DLLA exactly.
+Speaker 1 | 10:18
+But the memory is become half.
+Speaker 2 | 10:22
+Yeah, but the DLLA is not exponential, right? That's because this gap. This will be if we have a very higher one this big we will still have the gap not be that big. I don't think the gap will be that percentage, it is more or less, it's the same size.
+That's just the building time of the DLLA. Well, yep.
+Speaker 1 | 10:48
+Because it's the same if you're just comparing with this one because they are the same. Just calling the DLLA. Let's
+Speaker 2 | 10:59
+Here it's only a large nor small on our own only on stream. Yes.
+Speaker 1 | 11:04
+Stream exactly in the parallel one. The thing is, for the parallel batch processor, I made another script for us to make it faster. But it uses more memory than C#. So if we want the DLLA to become faster we can call it fast change the creation ha.
+Speaker 2 | 11:30
+Yeah fasters of your own st.
+Speaker 1 | 11:32
+Yeah it's faster than C# but uses more memory. It's based up there. You need to decide which one you really care about. CR is already fast. Yeah. I've never let my baby to failing bad. I really work on CR and.
+I'm really happy with most of some parts, really make me challenge to make fast ROSTA for it to compare because C# gives me very good. You will see another results for H which is more interesting.
+So you can say here we have that difference for the large one because it's a parallel, it's used more memory calling it several times. That's a problem. But as I said, the difference is based on the millisecond, so it's not very different.
+But here is the graph you said. Maybe this will be useful. So these are for, as I said for small and large datasets. Now we go for the huge one. That time of rust for the parallel processor. You can see it's just ten seconds, but in the case of C, it's just one second.
+Speaker 2 | 13:06
+That's doesn't need to be the best in everything exactly.
+Speaker 1 | 13:12
+Those places would become best. But just like.
+Speaker 2 | 13:16
+Find the strengths see where it is. Yeah, fairly able to use exactly that.
+Speaker 1 | 13:21
+That's actually my project and it's not like I try to say ROS is better or not, it cannot catch the shows. It's like who wants to decide it, they can just check these results and this data and your optimization of ROS, you can see how much is faster as C# and so much better than the PIS. ROS.
+And the DL just uses a little, it's so fast. It's too fast. It's good. But I did put this optimization just for the parallel processor. I didn't apply for the other parts because I just changed the creation to use it in the parallel way. The results here as in this case. As I said, the optimized C# or faster ROS use much more memory than we expected here.
+Yeah. Now here is the place. So if the speed difference is not important. And we have the C# and very huge datasets like MI records with the parallel, batch processor scenario, test scenario, maybe C#. This is still good
+because it's used reasonably much memory.
+Speaker 2 | 14:43
+And the numbers is what three 400 what are we talking about?
+Speaker 1 | 14:50
+This the numbers you as I said this is the megabytes me yeah for memory usage is megabyte for a CPU time is milliseco yeah.
+Speaker 2 | 15:02
+Okay, 450mb is quite a little of that there.
+Speaker 1 | 15:06
+Yeah, it's... You can see this. For the huge parallel, let's use so much. But for the stream and page, VOR is still good. Useless, but here maybe rough.
+Speaker 2 | 15:21
+Just skipping... It's really doing things in parallel and is only doing so with... It is doing so much at the same time that it gives a lot of memory.
+Speaker 1 | 15:32
+Yeah, but as I said, because I make it faster if I just use this, regular rass as a dela, it's become slower and useless memory. Yeah, they can. Yeah, it can be. So these are the results we have and I made very what is that which was a very small decision te if I found it because I changed the place decision to a here this is the decision slide.
+If you have the memory usage problem yes no I don't have it. Do you have them? Performance issue keeps sharp. And then you don't need really need to think about GS well, but you have the performance data based of data size you can find. What should you do is like you can change your scenarios or see if you can or not or if your data size is a smaller medium as with SL. Hundred thousand three.
+Speaker 2 | 16:48
+So is it this simple? Because if you have performance issues, you don't really talk about why you have issues. Yeah, it can be all kinds of things. It doesn't need to be a memory issue.
+Speaker 1 | 17:04
+Exactly. And that's one of the parts I try to put out of scope of this project because, the thing is, I just didn't give advice like, "This is the good and the best solution you can ever have." Just go for it. No, I just said if you have this part of this one memory usage, you have a problem and your speed is the problem. Have a problem with this SPE?
+Okay, you can think about Rust, but otherwise you don't really need to think. Well, don't waste your time.
+Speaker 2 | 17:38
+It says you write to worst DL. It's more of a thing.
+Speaker 1 | 17:44
+Because it's just migrating to the ROS is not that easy. You need expert people to just see if your project has that ability to change the part of it to the ROS or not because if you cannot change it, just separate or isolated part of it as a ROS, it's not really something you can do with Rust because it's not reasonable to change all the projects just because of the
+it's just like giving advice to that, that's actually the thing. So, no, it's the thing I really need from you, which is to know if these results are, based on your opinion, are they usable things if you wanted to talk with anyone based on this condition or if you have faced with this problem. You think this project or this result can help you to start thinking or not think about Rust because that's my world.
+Speaker 2 | 18:58
+That's very hard to say without reading your whole paper.
+Speaker 1 | 19:03
+Yeah, we have seventy four.
+Speaker 2 | 19:06
+Like, if your paper is set up, well, you have proof, and you can show what kind of test you really made. So you prove a concept that can be valuable? Yeah, that's really depending on how it looks. I can tell that based on this.
+Speaker 1 | 19:29
+And an early one, that's what you have in your mind, is like what makes you... What makes you concerned was.
+Speaker 2 | 19:40
+Now, we talked about it already. Yep. About what? The name of concerns, all of your concerns is not within your scope. That's more or less business, and that's not.
+Speaker 1 | 19:54
+And that's why we do these things for money.
+Speaker 2 | 19:57
+And if you purely look at performance and things around that, then this is kind of getting the part that you need to be offering, scoffering the part you need to offer. That's. Yeah.
+Speaker 1 | 20:14
+So that's using it. It can be used as one of the steps that we can... If someone wants to face this problem and want to work or just comment on someone, this can be one of the steps that they can use it. This is step one, and make people curious or start thinking about us. Then they will go for checking the other
+good, yeah, let's go to yours. Is it okay with the two things? That's good. If someone wants to use this or just continue this project, they need to cover the other parts that can affect it on the performance.
+Speaker 2 | 21:08
+Yeah, the only thing for me is like... For me, a graph is in my head. If I'm looking, this is... If I look at code languages that are used or something, I always really like the graphs because a small, medium, and huge doesn't say much to me.
+Small can be small in your mind, but who says it's small in my mind? So that's all. First of all, you need to define somewhere small. Medium and huge... I think you did, so that's good. So then it's fine and uncomfortable.
+But what I would want to see is really this. Then I put it in the same graph. You have something like this. This is VST, and this is C. Sharp. I can really compare Fair. Boeing Airport. So it's 30 minutes.
+Speaker 1 | 22:05
+I felt sorry. That was good. I thought you...

@@ -1,0 +1,372 @@
+Speaker 1 | 00:00
+But it has a smaller size in case of primary files. In terms of memory usage, Rust has less memory usage, but C++ uses more memory at runtime, but more than... Yeah, but the point is it depends on the framework as well. It depends on the architecture of the CPU and the machine as well.
+Yeah, so maybe in another framework, it performs better. In BN time, it performed better. So that's the thing that it's not stable, but in the end, I found something for you.
+It's public research. This one.
+There are some algorithms that compare. It's a research, public research ROS vs. VC++ benchmark. Okay, as a technical part, for example, you can refer to this. For example, in this, algorithms, this is for example, another one. This is a binary search and perform, and the result shows the result of ROS bSLA as well.
+For example, here, let's see. Yes, here is VC++ and here is ROS. For example, in this algorithms, VC++ performs better, and then better this is ROS, this is the result. This is simple for the ROS, and this is the average.
+But in this, for example, the binary search. This is the data. The amount of data. The data increased during each comparison. For example, in this size of data, this is the act of VC++, and this is the act of ROS, and this is the result in binary search. For example, that the ROS performs better.
+So if some clients wanted to know about the performance, you can refer to this, and I have a presentation for you that you can use as well, not taking.
+Speaker 2 | 02:20
+I'm seeing mostly re color here, which is C plus is performing better than ROS.
+Speaker 1 | 02:25
+Not all of them. For example binary search Russia perform better. I will create and do based on this. I will create an input for your presentation with data that shows this result as a shortcut. I will give it to you as the result of this fair comparison.
+You can refer to this as well. You say about it, and these are, for example, some other research from Microsoft as a reference. I will add it to your document from Microsoft and Google. So, their focus is more on security and memory safety.
+That's why they decided to go for Rust, and they are using Rust right now in their core functionalities.
+Speaker 2 | 03:23
+That's.
+Speaker 3 | 03:24
+Yeah.
+Speaker 1 | 03:25
+This is Google, this is Microsoft.
+Speaker 2 | 03:28
+Okay? And those are in your documents, right? Yeah.
+Speaker 1 | 03:30
+I mean, yeah, in my document as a reference for you, I guess your clients cannot say anything. Yeah, and there is Microsoft behind it. Microsoft supported or Google supported. So, it means they are convinced to use Rust.
+Yeah.
+Speaker 2 | 03:51
+Your book is not ready. That's right. I'll share it with you as me.
+Speaker 1 | 03:55
+Yeah, I will share it with you as my... In fact, it's already in the sign-off. I just first started by showing this to you. For example, in this part.
+Speaker 3 | 04:09
+Let's see.
+Speaker 2 | 04:11
+Well, Microsoft and Google documents are comparing C++ and Rusttra.
+Speaker 1 | 04:17
+Yeah, here if you read this... If there are control language examples, see if you can move to the system memory save. In our next, we will explore why we think Rust programming language is currently the best choice for industry-leading developers whenever possible due to its ability to memory safety. Why Rust?
+And there they talk about C++, others, even C# and SPPL as well. I will make a short explanation summary for you of this and you can show it to your clients. If they say, "Okay, give me the reference," you can refer to this.
+For example, if we added the PowerPoint in your presentation, you have a PowerPoint that you can use. For example, "Why invest in Rust today for a pay of tomorrow?" The investment is training they need to be trained.
+Maybe some developers can help them. While it's worth long-term one-time training, long-term productivity boost. Another thing is, this part is non-technical. The resident of, for example,
+adopts their software and architecture to the new language. This is a challenge. Maybe the clients have so... They need to adopt it gradually, module by module, or some smart spot that... Has played in, but they are more important core functionalities. They need to start with them.
+So they need to put some plans, but in the future they have a simpler code, safer code, and easier maintenance ecosystem gap. For example, some libraries compared to C or C++ are as well as maybe they are not that much mature, but they are fast-growing and they are supported by Linux, Microsoft, AWS, and these companies are using Rust, and it is growing.
+Speaker 2 | 06:58
+Yeah, it is growing, yeah.
+Speaker 1 | 07:01
+And developers are available. So this is something that you can help the company. If they do that, they are in the age of technology and so is Rust. So, it has a good future.
+Speaker 2 | 07:21
+I was talking about these kinds of things during our meeting. So with this kind of comparison, you can... commi.
+Speaker 1 | 07:32
+So what is your feedback? I would like to know if it works for you or.
+Speaker 2 | 07:36
+Yeah, I think it looks good.
+Speaker 1 | 07:38
+And in some technical part, these if the people are kind of some technical people, you can refer to this part as well. Fast set up. For example, LA ROS to chain cargo is kind of a dependency management build system.
+So you put add all of your dependency in Cargo. So in Circa and C plus you need to handle everything manually manage your dependencies, your libraries, with cm make and other tools. That is a little is harder than, Rust. Rust is a modern language.
+Speaker 2 | 08:21
+Tech like the technical.
+Speaker 1 | 08:24
+So you will have this as well. Fast development, for example, Borcher and some other technologies, you can convince technical people with this high reliability and safety, thus eliminating memory-related errors.
+Speaker 2 | 08:42
+For example, we don't need to go all over... Okay.
+Speaker 1 | 08:48
+So and this is challenges like I said as learning curve language, Mandy, limited ecosystem, deer availability, these kind of are challenges that in the future they pay off. Yeah, this is an example code from my prototype. I created a project both in C plus and Rust. I add my repository. This is the repository. I give you the link in the PowerPoint. I referred to the link as.
+Speaker 2 | 09:29
+The poster link is quite away from... No.
+Speaker 1 | 09:33
+So this is the part of my really... No need for now to change the repository. I will show you the code. You see, this is Spilla's plus version. This is Rust version. They do this exact same functionalities.
+Speaker 2 | 09:55
+What is it doing.
+Speaker 1 | 09:57
+Yeah, I will tell you. Do you want this to be in your set? This is an overview of IoT sensor network components. There are some sensors. It's simulating and embedded device, like some sensors. Imagine some sensors, some temperature sensors in here or motion sensors that can understand the temperature of the weather or your motion.
+So they. They collect data. They send it to the base station, and the base station is supposed to store it in a data center, cloud, or server. Yeah, okay. In this part, I implemented both in C++ ROS and Rust to see how they handle the functionalities. In the base station, there are more lots of sensors. It should be concurrency and multi-reading to handle all the tests.
+I just wanted to give you an overview of the prototype. This is the result. The binary size is almost the same, and the memory usage is too. My supervisor at the university wasn't convinced about this kind of things.
+He said, "Okay, maybe this library can use different algorithms to make it have less memory usage." But I couldn't convince him about this. This part that maybe it can be useful for you in such as handling...
+For example, here is the C++ version for that prototype. This is the ROS version here. If you imagine... So I guess you are a technical person as well. If this suit couldn't be...
+It is a pine function. If this pine function couldn't bind this circuit with this address, there is a circuit, there is an address. This is a base station. It should by this address bind the circuit to fetch data from those and source.
+It returns an error, and this is something that C++ ROS doesn't prevent you from doing in compile time from making this kind of handling this kind of situations. It
+gives you the option that you go and compile your code. So no matter what happens in the future, it will work. But in the ROS version, if you don't handle this situation, ROS knows that this binding may cause errors.
+If you don't handle it, this is the mark question mark that will... If you don't put this code mark, it won't compile the code. It tells you what to do in this situation, that it may cause an error. Okay, and here there is a result.
+For example, in the main, at the top of the function in the main, if you handle both situations, such as a situation and an error situation, and for example, this is another thing that it is called a read. This is a read CSV file, for example. This is a buffer that reads the data.
+If you don't put this question mark, Rust won't compile it for you.
+Speaker 2 | 13:51
+Your code and if there are some writing CS in us, I know. And those two code parts are doing exactly the same thing. Yes, and one is shorter than the the.
+Speaker 1 | 14:10
+More readable like this, you can see here. It's this. It's closer. You need to put a right. There are a lot of "write" and "read" code parts. Okay, perfect. This is this suqu UDB suket. This is something that Rust has in it's a standard library, but the standard library of C++ doesn't support this function. This UD re. You need to add a new library if you want to have this, or your DV so get.
+Otherwise, you need to create a general socket and after that, cast it to this. It may cause problems. Maybe you can't cast, it's a little problem. Yeah, maybe this... If this socket won't bind, it won't bind to this address, this object will remain in your memory, and you should close it manually. Developers should close it manually.
+Otherwise, it causes them memory leaks. Yeah, but here, if this socket couldn't bind to the address, this... So it will be deallocated and removed from the memory automatically. You don't need to handle that to it by yourself in advance.
+Okay? There is a concept RAII (Resource Acquisition Is Initialization). This is something that Rust handles, memory management, okay? In general, Rust handles memory management without garbage collection having garbage collection.
+Speaker 2 | 15:49
+It's a great example. So really good.
+Speaker 1 | 15:54
+Yeah. Yeah. And I can't... So this is more tech that we can focus focus.
+Speaker 2 | 16:00
+Yeah, yes, that is for the technical part.
+Speaker 1 | 16:03
+I at Repository and have some benchmarking as for example here.
+Speaker 2 | 16:16
+Yeah, for now, it looks good. If you can send me your document and I can do a review as well. Yeah.
+Speaker 1 | 16:25
+You see, this is the PDF from Google. Google APS Chrome. 70% of high critical vulnerabilities impact of memory safety and this is from Chrome, this is from Android, high critical vulnerabilities. 70% they are using to use yeah.
+Speaker 2 | 16:47
+And this one is in your documents, right? As a... okay.
+Speaker 1 | 16:52
+Perfect. This is for example, project of 68% in the zero days and okay.
+Speaker 2 | 17:00
+Yeah, perfect.
+Speaker 1 | 17:02
+Maybe I can, the screenshot of this part be my pro point as well. Yeah.
+Speaker 2 | 17:11
+Yeah, that's totally fine, but looks good right now. Yeah, perfect.
+Speaker 1 | 17:17
+So, adation part. I don't know how to tell my supervisor that you give me the confirmation that it's valuable for you. Because I need to tell my supervisor that you can... You are convinced and these information are valuable for you. You can convince.
+Speaker 2 | 17:37
+Your client. I think you need to talk to Hugo for that part, because Hugo is... Yes. Exactly. I cannot give that kind of permission or confirmation to you.
+Speaker 1 | 17:49
+Yeah. Supervisor is one side. The supervisor of my university is another side.
+Speaker 2 | 17:56
+That I cannot say and.
+Speaker 1 | 17:59
+But yeah, but they are valuable for you.
+Speaker 2 | 18:01
+Yeah I think it looks good.
+Speaker 1 | 18:04
+So I cover technical parts yeah, non-technical part with the table yes, repository yes, the sum as a part of my code to show the errors that may cause.
+Speaker 2 | 18:19
+Yes, you need to check with Hugo. I cannot do any confirmation or say okay, everything Hugo far. Yeah, okay, thank you.
+Speaker 3 | 18:28
+Lis. Yeah, yes, no, that's my type. Okay, sorry then.
+Speaker 1 | 18:40
+Yeah, for the last thing. Do you think there is anything else that can be valuable for you to have me add in this for it to be used?
+Speaker 2 | 18:53
+For now, everything looks okay, but like I said, I didn't check your whole document, so I cannot say anything.
+Speaker 1 | 18:59
+I will prefer something for you to use it in case of a meeting with PowerPoint.
+Speaker 2 | 19:05
+Maybearisons.
+Speaker 3 | 19:07
+With, for example.
+Speaker 2 | 19:09
+With the code. And we take some kind of calculations. I think it looks good right now, but I don't know what your SPAR is saying.
+Speaker 1 | 19:18
+You know? Yeah, I understand.
+Speaker 3 | 19:22
+Okay with me, just.
+Speaker 1 | 19:24
+Okay, maybe if you don't need me, I can leave.
+Speaker 3 | 19:28
+Yeah I try to make the screen bigger because it becomes small. Yesterday it happened. I don't know why the scale just went to 10%. You need the app, surely. Please, I need the smaller version then scale just... Okay, that's not getting smaller.
+I will continue to like this, please. Make the first thing small. As you remember, I talked about that I think he is coming back about what I did until now. So, yeah, I try to introduce that they can use the L if they want. I had my benchmark based on all these results and I prepared the... That's just not preparing. I put all data in this states. What's just a chart and chart is a little too messy, but I will explain exactly what part is do what. These are most of them are technical results like I just compare.
+Yeah, based on doing everything. Yeah, it's actually, I try to follow this idea in which condition the project can... If you want to make a project better, you can think about Ross. But it's just the fourth part of the performance or trade safety or concurrency safety just for that part.
+It's not like I said completely. Ross is every time better or not. It's just giving the option that you can think about Ross's option? Yeah, and I had three different scenarios, like, calling the batch Or.
+Speaker 2 | 21:54
+Your phone is here your.
+Speaker 3 | 21:57
+This maybe you will need it. Okay.
+Speaker 1 | 22:06
+Thank you.
+Speaker 3 | 22:11
+So it's like all this data. Sorry here. It's based on the project that I got it from the consultants that their project actually, like this is the simplest version of the project. So it's based on trade scenario.
+If the project is based on the batch processor, stream processor or calling the parallel tasks, you can choose between one. It's like in the parallel data is very funny. That's far. You can, here I have three sizes of inputs.
+It is for large. It's very huge and small. As I said, it's starting from ten thousand to a million. Okay.
+Speaker 2 | 22:58
+But what I'm seeing here is it some kind of memory?
+Speaker 3 | 23:04
+Yeah, it's for both memory usage and CPU time. Yeah, it's for these two. And, the memory usage is actually one is for peak memory and the other one is the net memory. It's like how much memory you use at the most.
+But because the project usually, let's say the .NET project at first without you running and then anything you do when you're just starting the project, it will be taking memory to use it.
+So I try to check the net memory usage that exactly that part of the code how much memory you use, because I got it from who wrote that? Feedback is if I want to introduce this part of my project to validate my project
+and if someone wants to use this data, they already have the project that is running on .NET. The project already runs. So that part of the running, the code memory usage shouldn't be counted in my data.
+Okay, so I just picked exactly the part of the code. How much memory you use, here. With the data size, I will check us. Those are the tools. But, the thing with this results, both of the CPU times are in milliseconds and the memory usage is in megabytes. It's presented here both.
+That's why these numbers are not clear enough because they show both of them. So I will separate both into different charts that I will create. Then I can show it in a different and more clear version.
+But I put it all in the same place. In one class, you can find out what's the result can be. The thing is, if I want to try to give someone advice based on this result, we can say if they will have a very huge data and if they can do it already, they have it in the parallel batch process in the parallel way. Can process them? They can do it. If they already have it in this speed, it's good based on the calling Rust. We know Rust uses less memory usage but the runtime is so high it takes time to run.
+But this is the C# calling the Rust, which the Rust code is optimized. These results showed it increased the memory usage but sped up and it's faster than C#. But it uses more memory than this one.
+And the C# is the thing is, they can decide if the memory usage is important for them. So, they can go on continuing with this C# code or anything they wanted. But if memory usage is not important that much for them, because these numbers are based on the megabytes or just a part of it, it will not be changing that much or the differences won't be that much.
+If the memory is not important but that they need the faster and they can think about Rust and call it with the DLL part. It's one step, the other part is thinking. They have the Ross experts. Or is it possible to call D-led or inject a Rust code in the project?
+That's the other steps that I will not cover during my research. But they can decide it based on this. What they wanted.
+Speaker 2 | 27:07
+Based on this one. I won. Yeah, so. But your project is kind of selling cost.
+Speaker 3 | 27:18
+Not actually, not completely sellings.
+Speaker 2 | 27:20
+But at this day, you need to convince someone, use a Rust library or some kind of benefits of Rust.
+Speaker 3 | 27:32
+Right? Yeah, but, the thing is.
+Speaker 2 | 27:38
+Yeah, this is from Hugo.
+Speaker 3 | 27:41
+Not Hugo, but, I don't have time to show this one to him, but I got feedback from Tudor as a consultant. Yesterday, he actually liked this data because it helps them to find out when they can think about Rust.
+But the other part is usually data is not that huge. It's not in million records usually. Data has become 10,000 or hundred thousand records. In this case, the result can be changed. You can see the optimized version uses so much less memory and it's faster.
+So that means, in this case, they can think about Rust? No, these results are not valid in the large part, because for the large part, I just adopted that optimization as a D-ll for the huge part. This data is not complete. I just wanted
+to show the optimization, how much is working better. But it will be reduced the time here and the data will be more like the optimization data with large data. Yeah, exactly that.
+That's the part I want to show them. If they have large data, and if they wanted to collect them, yeah, exactly. And in the parallel process, they can decide which kind of scenario they can use it. They have the industrial version. They want to change it into the batch versions or just call them with the parallel threads. They can decide based on this.
+Maybe they will check it and say C# is working better with the parallel and they don't want to go after us. That's their decision. But I will show them that C# is working so much better with the parallel and it's faster. Using less memory.
+It's good. But as I said, if I want to present it, I will start with this small data and this large data. This huge data with a million resources is somehow the thing. It happened. They can just separate their data and it's faster.
+Speaker 2 | 30:13
+A little bit better. Because when you start with the small data, I don't understand why you want to start with the small data, because you want to make the finish part, with the impressive parts, right?
+But when you start with the small data, you lost me there.
+Speaker 3 | 30:37
+It's actually the huge ones. Yeah.
+Speaker 2 | 30:39
+I was not expecting any large data there because I couldn't see it was not clear enough. So I was like, "Okay, in that case, why should I use Rust?" So I was thinking like that. You know what I'm exactly Exactly.
+Speaker 3 | 30:54
+If I want to make a presentation, I will start with the best solution.
+Speaker 2 | 30:59
+You can start with the small data that's awfully fine, and you can finish it with the large data, but you can explain it little bit more clearly, or you can prepare it little bit better so people can understand in the beginning. There should be some kind of comparison. Yes, we are seeing the small one right now, but it's going to be a large one as well.
+Because I was like, "What? Why am I seeing this right now if there's no benefit here for using C#" You know what?
+Speaker 3 | 31:38
+Yeah, exactly. It's like preparing for if I want to make a presentation that I will do next week, but, I got to that point I need to prepare people.
+Speaker 2 | 31:52
+Exactly. Maybe at the beginning you can say I'm starting with the small data, but afterwards you are going to see large data as well. And you can see the difference between the data size of using C# or Rust, something like that. Your first sentence can be like I'm know.
+Speaker 3 | 32:13
+And thinking maybe it will be good. At first I'll talk what's in which condition that's was working better or not working better. I will explain. It's like the summary of all this data. I can tag them, then show the data is like you can see more results visible.
+Speaker 2 | 32:33
+Summary should not be too long.
+Speaker 3 | 32:35
+Yeah.
+Speaker 2 | 32:37
+Because you are losing people in that case, they need to keep their focus on your presentation if it is going to be too long. In that case, nobody. Yeah, and those are important points. Comparison between small and large data.
+But in the beginning I was like why I'm seeing that where's network? Yes, that's why I asked if you got any feedback from someone else.
+Speaker 3 | 33:11
+Yeah, I got it, yeah, complete, yeah.
+Speaker 2 | 33:19
+Because this one is impressive. Yeah.
+Speaker 3 | 33:21
+But this is the parts exactly.
+Speaker 2 | 33:24
+It's really important because with the large data, you can see the real difference, right? Yeah, with small data, of course, it's not that important, but our clients are big clients, so they have.
+Speaker 3 | 33:39
+Large data. Actually, that the first one was very huge data. It was like million records. That's the thing II the 1st. No, it was huge. It was huge. Yeah, for the huge thing that happened, that means if you have millions of records, that's a huge one.
+Yeah, that's a huge one with the small it's because this is for millions of records that we can give them this feedback. Yeah, sure that they can divide their data. As for the other things, optimize the trust.
+So good is for 10,000 records here, this is 10,000 records. Well, you can say this is so and.
+Speaker 2 | 34:45
+So Rust is using too much CPU.
+Speaker 3 | 34:49
+As for the time, it's about time how much faster or slower. So that means.
+Speaker 2 | 34:56
+Is it slower than.
+Speaker 3 | 34:59
+CS no, here is Ross Fester. Okay, it's about time how much time it take it.
+Speaker 2 | 35:08
+But in that case it's slower. It's taking like hundred milliseconds.
+Speaker 3 | 35:13
+So that means our RUS is faster.
+Speaker 2 | 35:20
+Or something is wrong with me.
+Speaker 3 | 35:22
+Okay, it's like, for run the app and get the results. Let's say Rust, take hundred, yeah, hundred millisecond. But for C shap it will be like 140 millisecond. That means Rust is faster, is it? This is time, it's not the faster.
+Speaker 2 | 35:48
+Can you go to the charts here?
+Speaker 3 | 35:52
+This is the chart or just... No, just think about Rust. That's the reason I said this graph is not clear because I put both of them at the same place.
+Speaker 2 | 36:03
+If the chart is showing the time.
+Speaker 3 | 36:07
+So yeah, this one takes less time to run and give you feedback. That means it's faster.
+Speaker 2 | 36:15
+Okay, so that is sea shark park, that is rot.
+Speaker 3 | 36:19
+Yeah that's fast and optimized it trust uses less memory. Yeah, I know. The graph is. Is not clear at all. A complete.
+Speaker 2 | 36:36
+I am the only one having a problem to understand your group or.
+Speaker 3 | 36:43
+Like data in the graph at the first data. What is this? I explained it, then I found that I should separate the graphs. That's one of the things I got, but yeah, other parts are... Sorry, I know I'm very bad at making the graphs and I just like the colors and this,
+but... No, I will make it clear, okay? Because I have a lot of numbers here. This one maybe just looking through it, you can just follow with your finger and find out which one is better.
+But I wanted to put it in this chart, but I will completely separate it. One chart is for time, based on the inputs and scenarios you can choose. Which one's faster? Yeah.
+Speaker 2 | 37:46
+So you need to create a new one but a little bit more clear or a better way to show it.
+Speaker 3 | 37:58
+Yeah.
+Speaker 2 | 37:59
+Sure you can go.
+Speaker 3 | 38:01
+So yeah, just it helps me. But yes, I just put it to make sure that my results are visible in which kind of condition Ross can help or not. I just put it all together here to just see it. But because I already know what they showed, so it's clear for me.
+But I completely understand and say the others are not comfortable with these stats.
+Speaker 2 | 38:31
+Because you worked on it.
+Speaker 3 | 38:32
+Yeah, I understand.
+Speaker 2 | 38:35
+It's really easy for you.
+Speaker 3 | 38:37
+Because I already saw them. Yes, exactly.
+Speaker 2 | 38:39
+But when you're explaining it to other people, you need to make it easy for them as well.
+Speaker 3 | 38:48
+So I want to say this in this condition, as I know, usually not all of the time, but usually, the data is not more than a hundred thousand per cycle. It's not around, maybe 2000-200,000 or 300,000, but usually it's not like a million records at one time you just pushed.
+So these data are useful if you want to. If I want to tell people they can choose, think about it for us, that's okay. Based on their input data, they can change in code and ROS option. They can just inject it as a DLL easily without any... They just put part of the code, but all of them... I just can advise that's in this condition. Your project is good data, and the API is quite good. You can see that the memory usage and everything, the time is good.
+So let's go to the other step to see if you can adapt that or changing code to the ROS or not. That's the next step of this project, but it's not in my project scope. Okay, so this is actually the data, and I kind of summarized it in exactly which condition. As I said, for the huge data, maybe Rust is not a good option with the million records. You can still go for it with your CSRK. Especially if it's PA.
+But the sorry, still fight nothing. But the thing is, if I want to present it or I will sit with the customer, with the clients and talk with them, you can say, okay, you have million records in the streaming process.
+It's just they're just coming and going and the batch part. But you can divide it to smaller packages or smaller files and call them with the parallel. That way it's like if you have a huge... You can separate them to the small files. Just separate them. There's not a lot of tools that you can do to separate them and call them parallels and parallels are so much faster. That's another advice.
+But this is the part. No, completely, this is for the parallel process, all of them. Sorry. Yeah, can I just write what we have here because I think maybe, I think it's a little complicated, but I follow it here.
+Speaker 2 | 41:42
+No, that's fine. That's totally fine.
+Speaker 3 | 41:45
+Because I try to show you, at first. I know I just jumped in the middle of the conversation with the start because I already had this conversation with myself. But the thing is, because I have three scenarios and three inputs and a four-way to use.
+It's like implementing them is for two C# to call C# and C# to call the other. Yes.
+Speaker 2 | 42:16
+But do you need to explain this at the beginning of your.
+Speaker 3 | 42:20
+I did, yeah, at first because yesterday that's introduction. Yeah, and I recorded so I have the introduction part.
+Speaker 2 | 42:30
+You need to explain what you did. You did and how you did.
+Speaker 3 | 42:35
+Right?
+Speaker 2 | 42:37
+And you need to do that in a short summary, and you need to do it very clearly. Like five-year-old kids can understand or a 60-year-old guy can understand that. So just try to be simple, and afterwards, you need to explain it clearly without jumping to topics.
+Yeah, just follow your flow. You are interrupting that.
+Speaker 3 | 43:17
+Flow.
+Speaker 2 | 43:18
+You are more confused for me, confusing. So and for the closing part, you need to do it with the most impressive part, like Russia is doing really good with the big data or huge data, something like that.
+But you need to do it really. How can I say in the top side, so you need to impress everybody in the room. Yeah, short, clear, and finishing part will be in the high point. Okay, yeah, and trust yourself and make me feel that your trust as well just sell it to me.
+Speaker 3 | 44:09
+Okay it yeah sure. Okay, great, so that's it. Thank you.
+Speaker 2 | 44:18
+As made a lot of things. You spent so much time, I can see it, but when you are explaining it, we are jumping around all the time. Don't do that. Just trust yourself. Take a breath. Before doing your presentation, you worked right, you worked a lot.
+Speaker 3 | 44:42
+Just rest it. Yeah I completely agree.
+Speaker 2 | 44:49
+I'm not telling you those kinds of things in side.
+Speaker 3 | 44:52
+I'm just noise I really like that to have that sky is. Okay, yeah, it's sorry about my.
+Speaker 2 | 45:01
+I want to hurt your feelings, but no, I just want to give you good advice.
+Speaker 3 | 45:07
+You. thing is, you really give me very great feedback. It's like... I'm talking with the people. My friends feel the same. They're like, "You did it." They just called and said that means I already know what I did. You try to make me better in the best way that I can.
+Speaker 2 | 45:32
+Exactly. Because during presentations, you can be excited. I'm getting so excited, and if the audience can feel that excitement, but not in a good way. Like, she doesn't trust herself, I think, so she didn't spend that much time or she's not ready. They can't think of these things.
+For example, during my interviews with the ARC client, sometimes I say, "I'm really excited about this." If I make any mistakes, I'm really sorry, but I'm just really excited in a good way. I'm trying to explain myself.
+So you can do that and try to keep your energy level a little bit high as well.
+Speaker 3 | 46:23
+Yeah, I got it, okay? I just believe in you, this is so good feedback. I can ever find some because I don't know, I just have feedback for us. This is correct or not. But now I got it, that means that price is already left.
+It's good. Yeah, and I need.
+Speaker 2 | 46:42
+Already finished that part right now.
+Speaker 3 | 46:44
+You need to present it as you said it. I need to sell it. I would like to do that parting, just sell it. That's great. By the way, if I make a presentation, can I share it with you to see? Yeah.
+Speaker 2 | 47:01
+Of course. Yeah. Try to, not put so many words or paragraphs in your presentation because during your presentation, you are going to talk, right? But people cannot listen to you at the same time while they are reading your presentation.
+So make it short, make it clear, and it should be the important part. And during your presentation, don't try to read your presentation that much either. Just focus on the people, and you can keep their focus on you as well.
+Speaker 3 | 47:53
+He and, I will remember that first, I will start with the more impressive part of the project to make them like it.
+Speaker 2 | 48:05
+Yeah, and you can try to talk to them as well.
+Speaker 3 | 48:12
+Like. I said yeah.
+Speaker 2 | 48:15
+Is this graph clear enough for you or I can explain it to you a little bit more, or if you are interested in the huge data part a little bit more, I can explain it something like that.
+Speaker 3 | 48:28
+You can ask, in this case, which one you will choose? Yes, exactly.
+Speaker 2 | 48:35
+Something like that.
+Speaker 3 | 48:37
+It's like make it a all sizes. CA yeah, that's good, quite like.
+Speaker 2 | 48:46
+CUP if you can share your presentation with me.
+Speaker 3 | 48:54
+MI will give feedback, okay? Because right now I gather feedback about my reports, this research that tells us, and I just submit this in the root cause of this analyzing what's the problem, things...
+It's so flat. It's like I already know what I want to do, actually. I know what I did, but I got it. What he said is just I explain the part of it and exactly the thing you said is a jumping from the topics to the other topics. I shouldn't.
+Speaker 2 | 49:37
+Follow the flow.
+Speaker 3 | 49:41
+I put this process as a way can they. Okay, stop. That's good. Thank you. Yeah.
+Speaker 2 | 49:55
+Of course, you are welcome. If you need anything, you can reach me via... You'll know that. Yeah, and what does.
+Speaker 3 | 50:05
+Last day here? I think it will be until the 14th of July, something, but I need to hand in my tasks this weekend. This weekend, I will have it with our lecture with our supervisors that they convinced that I did it enough or not.
+But if I now I got that information from you, that's I can show that I worked enough. I got it from the other people so that they say that I did it and it's in the correct way just about the communication way, how I write it and things. Yes.
+So I'm positive about that part that I trust yourself.
+Speaker 2 | 51:00
+And trust your project. And said it.
+Speaker 3 | 51:06
+Actually yesterday, to do he, after I had a meeting with him, he tried to explain the project to the... As he said. And the funny thing is he really made him too curious about my project. Yeah, it just said yes, she knows him and I did it. Lady, she did that. She really... I did that. He said better than me. He just heard about it. Is it two times or three
+have that made her heart. He really came to me. I wanted to see my results and I said, "Okay, this is it really that good that you the other people that..." Not really related to this project, they won't know what my results are.
+I think I did it. But as you said, I need to convince about my results. Yes, that's what the world is. A confident enough. Sorry, I forgot how to speak. Thank you for your time and your feedbacks. They were.
