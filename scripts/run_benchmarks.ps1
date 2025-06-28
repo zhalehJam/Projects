@@ -28,42 +28,43 @@ $inputs = @( "results\small_input.csv", "results\large_input.csv", "results\huge
 
 # Store benchmark results for table + CSV
 $results = @()
+for ($j = 0; $j -lt 3; $j++) {
+    foreach ($input in $inputs) {
+        $inputName = [System.IO.Path]::GetFileNameWithoutExtension($input) -replace "_input", ""
 
-foreach ($input in $inputs) {
-    $inputName = [System.IO.Path]::GetFileNameWithoutExtension($input) -replace "_input", ""
+        foreach ($scenario in $tools.Keys) {
+            Write-Host "Benchmarking $scenario [$inputName]..."
 
-    foreach ($scenario in $tools.Keys) {
-        Write-Host "Benchmarking $scenario [$inputName]..."
+            $args = @()
+            foreach ($tool in $tools[$scenario]) {
+                $exePath = "E:\Education\Saxion\Internship\Projects\$($tool.Cmd)"
+                $outputFile = "results\output_benchmark_{0}_{1}_{2}.csv" -f $tool.Name, $scenario, $inputName
+                $cmd = "`"$exePath`" $input $outputFile"
+                $args += $cmd
+            }
 
-        $args = @()
-        foreach ($tool in $tools[$scenario]) {
-            $exePath = "E:\Education\Saxion\Internship\Projects\$($tool.Cmd)"
-            $outputFile = "results\output_benchmark_{0}_{1}_{2}.csv" -f $tool.Name, $scenario, $inputName
-            $cmd = "`"$exePath`" $input $outputFile"
-            $args += $cmd
-        }
+            $jsonPath = "results\benchmark_${scenario.ToLower()}_${inputName}.json"
 
-        $jsonPath = "results\benchmark_${scenario.ToLower()}_${inputName}.json"
+            hyperfine @args --warmup 2 --runs 2 --export-json $jsonPath | Out-Null
 
-        hyperfine @args --warmup 2 --runs 2 --export-json $jsonPath | Out-Null
-
-        # Parse and extract best time per tool
-        $json = Get-Content $jsonPath | ConvertFrom-Json
-        for ($i = 0; $i -lt $json.results.Count; $i++) {
-            $toolLabel = $tools[$scenario][$i].Name
-            $bestTimeMs = [math]::Round($json.results[$i].median * 1000, 2)
-            $stddevMs = [math]::Round($json.results[$i].stddev * 1000, 2)
-            $results += [PSCustomObject]@{
-                Scenario = $scenario
-                InputSize   = $inputName
-                Tool     = $toolLabel
-                "Time (ms)" = $bestTimeMs
-                "StdDev (ms)" = $stddevMs
+            # Parse and extract best time per tool
+            $json = Get-Content $jsonPath | ConvertFrom-Json
+            for ($i = 0; $i -lt $json.results.Count; $i++) {
+                $toolLabel = $tools[$scenario][$i].Name
+                $bestTimeMs = [math]::Round($json.results[$i].median * 1000, 2)
+                $stddevMs = [math]::Round($json.results[$i].stddev * 1000, 2)
+                $results += [PSCustomObject]@{
+                    loop = $j
+                    Scenario = $scenario
+                    InputSize   = $inputName
+                    Tool     = $toolLabel
+                    "Time (ms)" = $bestTimeMs
+                    "StdDev (ms)" = $stddevMs
+                }
             }
         }
     }
 }
-
 
 # Output results table
 $results | Format-Table -AutoSize

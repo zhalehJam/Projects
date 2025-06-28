@@ -77,54 +77,56 @@ $tools = @(
 
 $inputs = @("small_input.csv", "large_input.csv", "huge_input.csv")
 $results = @()
+for ($i = 0; $i -lt 3; $i++) {
+    foreach ($tool in $tools) {
+        foreach ($input in $inputs) {
+            $suffix = ($input -replace "_input.csv", "")
+            $inputPath = Join-Path $PWD "results\$input"
+            $outputPath = Join-Path $PWD ("results\output_memory_{0}_{1}_{2}.csv" -f $tool.Name, $suffix, $lang)
 
-foreach ($tool in $tools) {
-    foreach ($input in $inputs) {
-        $suffix = ($input -replace "_input.csv", "")
-        $inputPath = Join-Path $PWD "results\$input"
-        $outputPath = Join-Path $PWD ("results\output_memory_{0}_{1}_{2}.csv" -f $tool.Name, $suffix, $lang)
 
+            $languages = @("Rust", "CSharp", "CSharpRustCLI", "CSharpRustDLL")
+            foreach ($lang in $languages) {
+                $exePath = Join-Path $PWD $tool[$lang]
+                $mem = Measure-PeakMemoryUsage -exePath $exePath -arguments @($inputPath, $outputPath)
+                # $cpu = Measure-CPUTime -exePath $exePath -arguments @($inputPath, $outputPath)
+                $cpuResult = Measure-CPUTime -exePath $exePath -arguments @($inputPath, $outputPath)
+                $cpu = $cpuResult.Time
+                $output = $cpuResult.Output
 
-        $languages = @("Rust", "CSharp", "CSharpRustCLI", "CSharpRustDLL")
-        foreach ($lang in $languages) {
-            $exePath = Join-Path $PWD $tool[$lang]
-            $mem = Measure-PeakMemoryUsage -exePath $exePath -arguments @($inputPath, $outputPath)
-            # $cpu = Measure-CPUTime -exePath $exePath -arguments @($inputPath, $outputPath)
-            $cpuResult = Measure-CPUTime -exePath $exePath -arguments @($inputPath, $outputPath)
-            $cpu = $cpuResult.Time
-            $output = $cpuResult.Output
-
-            Write-Host "`n[$lang - $input] Output from EXE:`n$output`n"
-            $results += [PSCustomObject]@{
-                Scenario = $tool.Name
-                InputSize = $suffix
-                Tool = $lang
-                PeakMemoryMB = $mem
-                CPUTimeMS = $cpu
-                ConsoleOutput = $output
+                Write-Host "`n[$lang - $input] Output from EXE:`n$output`n"
+                $results += [PSCustomObject]@{
+                    loop = $i
+                    Scenario = $tool.Name
+                    InputSize = $suffix
+                    Tool = $lang
+                    PeakMemoryMB = $mem
+                    CPUTimeMS = $cpu
+                    ConsoleOutput = $output
+                }
             }
-        }
 
-        # Add optimized Rust only for huge file
-        if ($tool.RustOptimized) {
-            $exePath = Join-Path $PWD $tool.RustOptimized
-            $mem = Measure-PeakMemoryUsage -exePath $exePath -arguments @($inputPath, $outputPath)
-            # $cpu = Measure-CPUTime -exePath $exePath -arguments @($inputPath, $outputPath)
-            $cpuResult = Measure-CPUTime -exePath $exePath -arguments @($inputPath, $outputPath)
-            $cpu = $cpuResult.Time
-            $output = $cpuResult.Output
-            $results += [PSCustomObject]@{
-                Scenario = $tool.Name
-                InputSize = $suffix
-                Tool = "RustOptimized"
-                PeakMemoryMB = $mem
-                CPUTimeMS = $cpu
-                ConsoleOutput = $output
+            # Add optimized Rust only for huge file
+            if ($tool.RustOptimized) {
+                $exePath = Join-Path $PWD $tool.RustOptimized
+                $mem = Measure-PeakMemoryUsage -exePath $exePath -arguments @($inputPath, $outputPath)
+                # $cpu = Measure-CPUTime -exePath $exePath -arguments @($inputPath, $outputPath)
+                $cpuResult = Measure-CPUTime -exePath $exePath -arguments @($inputPath, $outputPath)
+                $cpu = $cpuResult.Time
+                $output = $cpuResult.Output
+                $results += [PSCustomObject]@{
+                    Scenario = $tool.Name
+                    InputSize = $suffix
+                    Tool = "RustOptimized"
+                    PeakMemoryMB = $mem
+                    CPUTimeMS = $cpu
+                    ConsoleOutput = $output
+                }
             }
         }
     }
 }
 $timeStamp = (Get-Date).ToString("yyyyMMdd_HHmmss")
-$results | Format-Table Scenario, InputSize, Tool, PeakMemoryMB, CPUTimeMS, ConsoleOutput -AutoSize
+$results | Format-Table loop, Scenario, InputSize, Tool, PeakMemoryMB, CPUTimeMS, ConsoleOutput -AutoSize
 $results | Export-Csv -Path "results\memory_cpu_benchmarks_$timeStamp.csv" -NoTypeInformation
 

@@ -25,7 +25,7 @@ class Program
 
         string inputPath = args[0];
         string outputPath = args[1];
-        
+
         GC.Collect();
         GC.WaitForPendingFinalizers();
         GC.Collect();
@@ -39,10 +39,10 @@ class Program
 
         fixed (byte* pInput = inputBytes, pOutput = outputBytes)
         {
-            if (inputPath.IndexOf("huge", StringComparison.OrdinalIgnoreCase) >= 0)
-                run_parallel_batch_job_for_huge_file((IntPtr)pInput, (IntPtr)pOutput);
-            else
-                run_parallel_batch_job((IntPtr)pInput, (IntPtr)pOutput);
+            // if (inputPath.IndexOf("huge", StringComparison.OrdinalIgnoreCase) >= 0)
+            run_parallel_batch_job_for_huge_file((IntPtr)pInput, (IntPtr)pOutput);
+            // else
+            //     run_parallel_batch_job((IntPtr)pInput, (IntPtr)pOutput);
         }
 
         stopwatch.Stop();

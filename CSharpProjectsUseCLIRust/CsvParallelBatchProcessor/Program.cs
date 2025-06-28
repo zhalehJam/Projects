@@ -15,7 +15,7 @@ class Program
         var inputPath = args[0];
         var outputPath = args[1];
          
-        var rustExePath = @"E:\Education\Saxion\Internship\Projects\RustProjects\target\release\batch_job_parallel.exe";
+        var rustExePath = @"E:\Education\Saxion\Internship\Projects\RustProjects\target\release\parallel_batch_job_for_huge_file.exe";
 
         var psi = new ProcessStartInfo
         {
