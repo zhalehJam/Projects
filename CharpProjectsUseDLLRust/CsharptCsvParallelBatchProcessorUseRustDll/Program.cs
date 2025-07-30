@@ -35,9 +35,9 @@ class Program
         var stopwatch = Stopwatch.StartNew();
 
         // if (inputPath.IndexOf("huge", StringComparison.OrdinalIgnoreCase) >= 0)
-        run_parallel_batch_job_for_huge_file(inputPath, outputPath);
+       //   run_parallel_batch_job_for_huge_file(inputPath, outputPath);
         // else
-        //     run_parallel_batch_job((IntPtr)pInput, (IntPtr)pOutput);
+        run_parallel_batch_job(inputPath, outputPath);
 
 
         stopwatch.Stop();
